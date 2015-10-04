@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxapplication9;
+package defaultpackage;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author peter
  */
-public class JavaFXApplication9 extends Application {
+public class UnversalDispatchSystemApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
