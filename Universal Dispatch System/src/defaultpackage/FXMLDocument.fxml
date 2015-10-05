@@ -22,16 +22,22 @@
                            <children>
                               <ImageView fitHeight="398.0" fitWidth="519.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Pictures/google-traffic-map.jpg" />
+                                    <Image url="@../../../../../../Pictures/google-traffic-map.png" />
                                  </image>
                               </ImageView>
                            </children>
                         </Pane>
-                        <ListView fx:id="driverList" layoutX="14.0" layoutY="33.0" prefHeight="361.0" prefWidth="216.0" />
+                        <ListView fx:id="driverList" layoutX="14.0" layoutY="33.0" prefHeight="346.0" prefWidth="216.0" />
                         <Separator layoutX="12.0" layoutY="437.0" prefHeight="8.0" prefWidth="776.0" />
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="44.0" text="Drivers:" />
                         <Label layoutX="269.0" layoutY="14.0" text="Location:" />
-                        <Button id="refreshDriversList" fx:id="refreshDriversList" layoutX="174.0" layoutY="405.0" mnemonicParsing="false" onAction="#updateDriversList" text="Refresh" />
+                        <Button id="refreshDriversList" layoutX="174.0" layoutY="388.0" mnemonicParsing="false" onAction="#updateDriversList" text="Refresh" />
+                        <TableView layoutX="14.0" layoutY="492.0" prefHeight="200.0" prefWidth="771.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -93,7 +99,7 @@
                      <children>
                         <Accordion layoutX="14.0" layoutY="14.0" prefHeight="747.0" prefWidth="331.0">
                           <panes>
-                            <TitledPane animated="false" text="System Settings">
+                            <TitledPane animated="false" text="Database Settings">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -110,12 +116,12 @@
                                     </AnchorPane>
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="untitled 2">
+                            <TitledPane animated="false" text="System Settings">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
                             </TitledPane>
-                            <TitledPane animated="false" text="untitled 3">
+                            <TitledPane animated="false" text="Customize ">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
