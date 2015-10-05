@@ -92,8 +92,9 @@ public class MainWindow implements Initializable {
         }
 
     }
-    static String[][] sd = Utills.listVehicles();
-   
+    
+    
+    
     
     
 }
