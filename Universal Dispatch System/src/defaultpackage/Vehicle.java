@@ -28,8 +28,12 @@ public class Vehicle {
     private Date dateDueCertification;
 
 
-    public Vehicle(short driverId){
+    public Vehicle(short driverId, String make, String model, short yom){
         this.driverId = driverId;
+        this.make = make;
+        this.model = model;
+        this.yom = yom;
         
+        //insert DB code to update tables
     }
 }

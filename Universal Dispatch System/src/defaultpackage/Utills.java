@@ -1,4 +1,3 @@
-
 package defaultpackage;
 
 import java.sql.Connection;
@@ -53,8 +52,9 @@ public class Utills {
             return null;
         }
     }
+    
 
-    public void listVehicles() {
+    static public String[][] listVehicles() {
 
         try {
 
@@ -85,7 +85,7 @@ public class Utills {
                 Date dueDateService = rs.getDate(7);
                 Date dateLastCert = rs.getDate(8);
                 Date dateDueCert = rs.getDate(9);
-                
+
                 vehicles[numCounter][0] = String.valueOf(id);
                 vehicles[numCounter][1] = make;
                 vehicles[numCounter][2] = model;
@@ -96,32 +96,30 @@ public class Utills {
                 vehicles[numCounter][7] = String.valueOf(dateLastCert);
                 vehicles[numCounter][8] = String.valueOf(dateDueCert);
                 numCounter++;
-                
-                System.out.println(vehicles);
+
             }
 
             vehConn.close();
+
         } catch (Exception e) {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
-        //return vehicles;
-
+        return vehicles;
     }
-    
-    public static String[] listVehicleIds(){
-        
+
+    public static String[] listVehicleIds() {
+
         String[] ids = null;
-        
-        for(int i = 0; i < vehicles.length;++i){
-            
+
+        for (int i = 0; i < vehicles.length; ++i) {
+
             ids[i] = vehicles[i][0];
 
         }
-        
+
         return ids;
     }
-    
 
 }

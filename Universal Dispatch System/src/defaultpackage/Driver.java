@@ -21,7 +21,7 @@ public class Driver {
     private String driverLastName;
     private String taxiPlateNum = "PLATE# YET NOT SET";
     private boolean isOnJob;
-    private boolean isParked;
+
     
     public Driver(short driverId, short vehicleId, String driverFirstName, String DriverLastName ){
         this.driverId = driverId;
@@ -29,7 +29,8 @@ public class Driver {
         this.driverFirstName = driverFirstName;
         this.driverLastName = driverLastName;
         
-        Vehicle vehicle = new Vehicle(driverId);
+        //insert DB code to update tables
+ 
     }
     
 }
