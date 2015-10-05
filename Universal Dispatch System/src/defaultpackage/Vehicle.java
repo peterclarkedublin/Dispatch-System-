@@ -5,12 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Date;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author peter
@@ -27,15 +21,6 @@ public class Vehicle {
     private Date dateDueService;
     private Date dateLastCertified; //eg. road worthyness test (DOE | MOT ...)
     private Date dateDueCertification;
-
-    public Vehicle(short driverId, String make, String model, short yom) {
-        this.driverId = driverId;
-        this.make = make;
-        this.model = model;
-        this.yom = yom;
-
-        //insert DB code to update tables
-    }
 
     static public String[][] listVehicles() {
 

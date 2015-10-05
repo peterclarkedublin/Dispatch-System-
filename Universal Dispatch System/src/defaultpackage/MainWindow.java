@@ -41,6 +41,9 @@ public class MainWindow implements Initializable {
     private PasswordField dbPassField;
     @FXML
     private Button sbSaveBtn;
+    
+    @FXML
+    private Button addNewDriver;
 
     //drivers tab
     @FXML
@@ -59,39 +62,12 @@ public class MainWindow implements Initializable {
         // TODO
     }
 
-    public void updateDriversList() {
-        System.out.println("pressed!!!!!!!!!");
+    public void addNewDriver() {
+        Driver.addNewDriver(newDriverFname.getText(),newDriverSname.getText(),newDriverPlateNum.getText());
 
     }
 
-    public void updateDbSettings() {
 
-        //add driver to database
-        try {
-            // create a mysql database connection
-            Connection conn = Utills.openDb();
-
-            // Item table mysql insert statement
-            String query = " insert into drivers (driver_first_name, driver_last_name, vehicle_id, taxi_plate_num)"
-                    + " values (?, ?, ?, ?)";
-
-            // Item table mysql insert preparedstatement
-            PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
-            preparedStmt.setString(1, newDriverFname.getText());
-            preparedStmt.setString(2, newDriverSname.getText());
-            preparedStmt.setString(3, newDriverPlateNum.getText());
-            preparedStmt.setString(4, newDriverSname.getText());
-
-            //execute the preparedstatement
-            preparedStmt.execute();
-
-            conn.close();
-        } catch (Exception e) {
-            System.err.println("Got an exception!");
-            System.err.println(e.getMessage());
-        }
-
-    }
     
    
     

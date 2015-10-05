@@ -31,7 +31,7 @@
                         <Separator layoutX="12.0" layoutY="437.0" prefHeight="8.0" prefWidth="776.0" />
                         <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="44.0" text="Drivers:" />
                         <Label layoutX="269.0" layoutY="14.0" text="Location:" />
-                        <Button id="refreshDriversList" layoutX="174.0" layoutY="388.0" mnemonicParsing="false" onAction="#updateDriversList" text="Refresh" />
+                        <Button id="refreshDriversList" layoutX="174.0" layoutY="388.0" mnemonicParsing="false" onAction="#addNewDriver" text="Refresh" />
                         <TableView layoutX="14.0" layoutY="492.0" prefHeight="200.0" prefWidth="771.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="C1" />
@@ -79,7 +79,7 @@
                         <TextField fx:id="newDriverPlateNum" layoutX="508.0" layoutY="680.0" prefHeight="25.0" prefWidth="86.0" />
                         <ComboBox fx:id="newDriverVehId" layoutX="695.0" layoutY="680.0" prefHeight="25.0" prefWidth="92.0" />
                         <Label layoutX="632.0" layoutY="684.0" text="Vehicle ID" />
-                        <Button layoutX="732.0" layoutY="736.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Save" />
+                        <Button fx:id="addNewDriver" layoutX="732.0" layoutY="736.0" mnemonicParsing="false" onAction="#addNewDriver" prefHeight="25.0" prefWidth="55.0" text="Save" />
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -111,7 +111,7 @@
                                           <Text layoutX="22.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database User Name" />
                                           <Text layoutX="22.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Database Password" />
                                           <PasswordField fx:id="dbPassField" layoutX="165.0" layoutY="149.0" />
-                                          <Button fx:id="sbSaveBtn" layoutX="262.0" layoutY="193.0" mnemonicParsing="false" onAction="#updateDbSettings" prefHeight="25.0" prefWidth="53.0" text="Save" />
+                                          <Button fx:id="sbSaveBtn" layoutX="262.0" layoutY="193.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="53.0" text="Save" />
                                        </children>
                                     </AnchorPane>
                               </content>
