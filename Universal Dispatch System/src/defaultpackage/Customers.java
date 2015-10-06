@@ -1,51 +1,43 @@
-package defaultpackage;
-
-
-import defaultpackage.Vehicle;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package defaultpackage;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 /**
  *
- * @author peter
+ * @author User1
  */
-public class Driver {
-    
-    short driverId;
-    private short vehicleId;
-    private String driverFirstName;
-    private String driverLastName;
-    private String taxiPlateNum = "PLATE# YET NOT SET";
-    private boolean isOnJob;
+public class Customers {
 
-   
-    //add new driver to DB
-    
-        static public void addNewDriver(String newDriverFname, String newDriverSname, String newDriverPlateNum) {
+    private short customerId;
+    private String customerName;
+    private short customerAccId;
+    private short addressLocId;
+    private String customerNote;
 
+    static public void addNewCustomer(String customerName, short customerLocId, String note) {
         //add driver to database
         try {
             // create a mysql database connection
             Connection conn = Utills.openDb();
 
             // Item table mysql insert statement
-            String query = " insert into drivers (driver_first_name, driver_last_name, taxi_plate_num)"
+            String query = " insert into customers (customer_name, customer_address_loc_id, notes)"
                     + " values (?, ?, ?)";
 
             // Item table mysql insert preparedstatement
             PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
-            preparedStmt.setString(1, newDriverFname);
-            preparedStmt.setString(2, newDriverSname);
-            preparedStmt.setString(3, newDriverPlateNum);
-            
+            preparedStmt.setString(1, customerName);
+            preparedStmt.setShort(2, customerLocId);
+            preparedStmt.setString(3, note);
+
             System.out.print(preparedStmt);
-            
+
             //execute the preparedstatement
             preparedStmt.execute();
 
@@ -56,5 +48,4 @@ public class Driver {
         }
 
     }
-    
 }

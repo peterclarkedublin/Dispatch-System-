@@ -7,18 +7,18 @@ package defaultpackage;
 
 /**
  *
- * @author peter
+ * @author User1
  */
-public class Jobs {
+public class Locations {
     
-    private short jobId;
-    private short customerId;
-    private short driverId;
-    private short destId;
-    private boolean isExpedited;
+    short locationId;
+    String latLong;
+    String locCountry;
+    String locCity;
+    String locTown;
+    String locStreet;
+    String locUnitNum;
     
-
-            
-    //create list jobs DB calls
+    
     
 }

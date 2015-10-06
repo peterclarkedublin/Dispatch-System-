@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -56,17 +57,66 @@ public class MainWindow implements Initializable {
     private TextField newDriverPlateNum;
     @FXML
     private ComboBox newDriverVehId;
+    
+    //Fleet tab
+    @FXML
+    private TextField vehicleReg;
+    @FXML
+    private TextField vehicleMake;
+    @FXML
+    private TextField vehicleModel;
+    @FXML
+    private TextField vehicleYom;
+    @FXML
+    private Button saveNewVeh;
+    
+    //locations tab
+    @FXML
+    private Button selectCustomer;
+    @FXML
+    private TextField selectCustomerField;
+    @FXML
+    private Button selectDriver;
+    @FXML
+    private TextField selectDriverField;
+    @FXML
+    private Button selectDestination;
+    @FXML
+    private TextField selectDestinationField;
+    @FXML
+    private TextArea driverMessage;
+    
+    //customers tab
+    @FXML
+    private TextField customerName;
+    @FXML
+    private TextField customerLoc;
+    @FXML
+    private Button saveNewCustomer;
+    @FXML
+    private TextArea customerNote;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
+    
     public void addNewDriver() {
-        Driver.addNewDriver(newDriverFname.getText(),newDriverSname.getText(),newDriverPlateNum.getText());
+        Drivers.addNewDriver(newDriverFname.getText(),newDriverSname.getText(),newDriverPlateNum.getText());
 
     }
 
+    public void addNewVehicle(){
+        
+        Vehicles.addNewVehicle(vehicleReg.getText(), vehicleMake.getText(),  vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
+        
+    }
+    
+    public void addNewCustomer(){
+        
+        Customers.addNewCustomer(customerName.getText(),Short.valueOf(customerLoc.getText()),customerNote.getText());
+    }
 
     
    

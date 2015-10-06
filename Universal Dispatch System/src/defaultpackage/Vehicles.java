@@ -2,6 +2,7 @@ package defaultpackage;
 
 import static defaultpackage.Utills.vehicles;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ import java.util.Date;
  *
  * @author peter
  */
-public class Vehicle {
+public class Vehicles {
 
     static private short driverId;
     static private short vehicleId;
@@ -78,7 +79,7 @@ public class Vehicle {
     }
 
     static public String[] listVehicleIds() {
-
+            //todo: this should be a sql call
         String[] ids = null;
 
         for (int i = 0; i < vehicles.length; ++i) {
@@ -88,5 +89,35 @@ public class Vehicle {
         }
 
         return ids;
+    }
+    
+    static public void addNewVehicle(String reg, String make, String model, short yom ){
+        
+         //add vehicle to database
+        try {
+            // create a mysql database connection
+            Connection conn = Utills.openDb();
+
+            // Item table mysql insert statement
+            String query = " insert into vehicle (reg_num, make, model, yom)"
+                    + " values (?, ?, ?, ?)";
+
+            // Item table mysql insert preparedstatement
+            PreparedStatement preparedStmt = (PreparedStatement) conn.prepareStatement(query);
+            preparedStmt.setString(1, reg);
+            preparedStmt.setString(2, make);
+            preparedStmt.setString(3, model);
+            preparedStmt.setShort(4, yom);
+            
+            System.out.print(preparedStmt);
+            
+            //execute the preparedstatement
+            preparedStmt.execute();
+
+            conn.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
     }
 }
