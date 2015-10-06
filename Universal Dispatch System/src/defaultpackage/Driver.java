@@ -25,7 +25,7 @@ public class Driver {
     private boolean isOnJob;
 
    
-    //create list drivers DB calls
+    //add new driver to DB
     
         static public void addNewDriver(String newDriverFname, String newDriverSname, String newDriverPlateNum) {
 
