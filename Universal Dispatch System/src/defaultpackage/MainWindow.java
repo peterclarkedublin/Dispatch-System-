@@ -9,14 +9,18 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -70,7 +74,7 @@ public class MainWindow implements Initializable {
     @FXML
     private Button saveNewVeh;
     
-    //locations tab
+    //jobs tab
     @FXML
     private Button selectCustomer;
     @FXML
@@ -85,6 +89,8 @@ public class MainWindow implements Initializable {
     private TextField selectDestinationField;
     @FXML
     private TextArea driverMessage;
+    @FXML
+    private CheckBox expedite;
     
     //customers tab
     @FXML
@@ -93,8 +99,11 @@ public class MainWindow implements Initializable {
     private TextField customerLoc;
     @FXML
     private Button saveNewCustomer;
+   
     @FXML
     private TextArea customerNote;
+    @FXML
+    private RadioButton enableAddNewCustomer;
 
 
     @Override
@@ -117,6 +126,43 @@ public class MainWindow implements Initializable {
         
         Customers.addNewCustomer(customerName.getText(),Short.valueOf(customerLoc.getText()),customerNote.getText());
     }
+    
+    public void enableAddNewCustomerFields(){
+        
+        //enable save btn
+        if(!saveNewCustomer.isVisible()){
+            saveNewCustomer.setVisible(true);
+        }else{
+            saveNewCustomer.setVisible(false);
+        }
+        //enable fields
+        if(!customerName.isEditable()){
+            customerName.setEditable(true);
+            customerName.clear();
+        }else{
+            customerName.setEditable(false);
+        }
+        if (!customerLoc.isEditable()) {
+            customerLoc.setEditable(true);
+            customerLoc.clear();
+        } else {
+            customerLoc.setEditable(false);
+        }
+        if(!customerNote.isEditable()){
+            customerNote.setEditable(true);
+        }else{
+            customerNote.setEditable(false);
+        }
+        
+
+    }
+    
+//    public void addNewJob(){
+//        
+//        boolean isExpedited;
+//        
+//        Jobs.addNewJob(selectCustomerField.getText(), selectDriverField.getText(), Short.valueOf(selectDestinationField.getText()), true, null);
+//    }
 
     
    
