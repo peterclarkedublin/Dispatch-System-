@@ -6,18 +6,12 @@
 package defaultpackage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -31,11 +25,15 @@ import javafx.scene.control.TextField;
  */
 public class MainWindow implements Initializable {
 
-    //settings tab
+    //home tab
     @FXML
     private Button refreshDriversList;
     @FXML
     private ListView driverList;
+    @FXML
+    private TableView activeJobs;
+    
+    //settings tab
     @FXML
     private TextField addressTxtField;
     @FXML
@@ -91,6 +89,8 @@ public class MainWindow implements Initializable {
     private TextArea driverMessage;
     @FXML
     private CheckBox expedite;
+    @FXML
+    private Button saveJob;
     
     //customers tab
     @FXML
@@ -118,7 +118,8 @@ public class MainWindow implements Initializable {
 
     public void addNewVehicle(){
         
-        Vehicles.addNewVehicle(vehicleReg.getText(), vehicleMake.getText(),  vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
+        Vehicles.addNewVehicle(vehicleReg.getText(), vehicleMake.getText(), 
+                                vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
         
     }
     
@@ -157,12 +158,17 @@ public class MainWindow implements Initializable {
 
     }
     
-//    public void addNewJob(){
-//        
-//        boolean isExpedited;
-//        
-//        Jobs.addNewJob(selectCustomerField.getText(), selectDriverField.getText(), Short.valueOf(selectDestinationField.getText()), true, null);
-//    }
+    public void addNewJob(){
+        
+        boolean isExpedited = false;
+        if(expedite.isSelected()){
+            isExpedited = true;
+        }
+        
+        Jobs.addNewJob(Short.valueOf(selectCustomerField.getText()), Short.valueOf(selectDriverField.getText()), 
+                        Short.valueOf(selectDestinationField.getText()), isExpedited, driverMessage.getText());
+        
+    }
 
     
    

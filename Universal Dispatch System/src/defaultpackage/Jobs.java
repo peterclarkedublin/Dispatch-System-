@@ -17,7 +17,7 @@ public class Jobs {
     private short jobId;
     private short customerId;
     private short driverId;
-    private short destId;
+    private short destinationId;
     private boolean isExpedited;
 
     static public void addNewJob(short customerId, short driverId, short destinationId, boolean isExpedited, String message) {

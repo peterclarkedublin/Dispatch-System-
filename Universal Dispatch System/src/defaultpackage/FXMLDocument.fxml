@@ -84,7 +84,8 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <CheckBox layoutX="28.0" layoutY="470.0" mnemonicParsing="false" text="Expedite this Job" />
+                        <CheckBox fx:id="expedite" layoutX="28.0" layoutY="470.0" mnemonicParsing="false" text="Expedite this Job" />
+                        <Button fx:id="saveJob" layoutX="717.0" layoutY="736.0" mnemonicParsing="false" onAction="#addNewJob" prefHeight="25.0" prefWidth="53.0" text="Save" />
                      </children></AnchorPane>
             </content>
           </Tab>
