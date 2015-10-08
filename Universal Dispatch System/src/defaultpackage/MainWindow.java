@@ -119,7 +119,7 @@ public class MainWindow implements Initializable {
     public void addNewVehicle(){
         
         Vehicles.addNewVehicle(vehicleReg.getText(), vehicleMake.getText(), 
-                                vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
+              vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
         
     }
     
