@@ -11,7 +11,8 @@ import java.util.Date;
  * @author peter
  */
 public class Vehicles {
-
+    
+    static String currLatLong;
     static private short driverId;
     static private short vehicleId;
     static private String make;
@@ -22,6 +23,7 @@ public class Vehicles {
     static private Date dateDueService;
     static private Date dateLastCert; //eg. road worthyness test (DOE | MOT ...)
     static private Date dateDueCert;
+
 
     static public String[][] listVehicles() {
 
@@ -40,34 +42,38 @@ public class Vehicles {
 
             int numCounter;
             for (numCounter = 0; rs.next(); numCounter++);
-            vehicles = new String[numCounter][9];
+            vehicles = new String[numCounter][11];
             rs.beforeFirst();
             numCounter = 0;
 
             while (rs.next()) {
                 int id = rs.getInt(1);
-                String make = rs.getString(2);
-                String model = rs.getString(3);
-                yom = rs.getShort(4);
-                mileage = rs.getInt(5);
-                dateLastServiced = rs.getDate(6);
-                dateDueService = rs.getDate(7);
-                dateLastCert = rs.getDate(8);
-                dateDueCert = rs.getDate(9);
+                String regNum = rs.getString(2);
+                String make = rs.getString(3);
+                String model = rs.getString(4);
+                yom = rs.getShort(5);
+                mileage = rs.getInt(6);
+                dateLastServiced = rs.getDate(7);
+                dateDueService = rs.getDate(8);
+                dateLastCert = rs.getDate(9);
+                dateDueCert = rs.getDate(10);
+                currLatLong = rs.getString(11);
 
                 vehicles[numCounter][0] = String.valueOf(id);
-                vehicles[numCounter][1] = make;
-                vehicles[numCounter][2] = model;
-                vehicles[numCounter][3] = String.valueOf(yom);
-                vehicles[numCounter][4] = String.valueOf(mileage);
-                vehicles[numCounter][5] = String.valueOf(dateLastServiced);
-                vehicles[numCounter][6] = String.valueOf(dateDueService);
-                vehicles[numCounter][7] = String.valueOf(dateLastCert);
-                vehicles[numCounter][8] = String.valueOf(dateDueCert);
+                vehicles[numCounter][1] = regNum;
+                vehicles[numCounter][2] = make;
+                vehicles[numCounter][3] = model;
+                vehicles[numCounter][4] = String.valueOf(yom);
+                vehicles[numCounter][5] = String.valueOf(mileage);
+                vehicles[numCounter][6] = String.valueOf(dateLastServiced);
+                vehicles[numCounter][7] = String.valueOf(dateDueService);
+                vehicles[numCounter][8] = String.valueOf(dateLastCert);
+                vehicles[numCounter][9] = String.valueOf(dateDueCert);
+                vehicles[numCounter][10] = currLatLong;
                 numCounter++;
-
+                
             }
-
+            
             vehConn.close();
 
         } catch (Exception e) {

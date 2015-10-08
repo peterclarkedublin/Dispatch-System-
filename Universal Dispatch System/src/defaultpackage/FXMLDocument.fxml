@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="804.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
    <children>
       <TabPane layoutX="14.0" layoutY="72.0" prefHeight="804.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -185,6 +185,25 @@
                         <Label layoutX="589.0" layoutY="653.0" text="Year of Manufacture" />
                         <TextField fx:id="vehicleYom" layoutX="705.0" layoutY="649.0" prefHeight="25.0" prefWidth="67.0" />
                         <Button fx:id="saveNewVeh" layoutX="718.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewVehicle" prefHeight="25.0" prefWidth="54.0" text="save" />
+                        <TableView fx:id="tvFleetList" layoutX="16.0" layoutY="60.0" prefHeight="448.0" prefWidth="773.0">
+                          <columns>
+                            <TableColumn fx:id="tcVehId" prefWidth="46.0" text="ID" />
+                            <TableColumn fx:id="tcVehOnJob" prefWidth="69.0" text="On Job" />
+                              <TableColumn fx:id="tcVehCustomer" prefWidth="121.0" text="Customer" />
+                              <TableColumn fx:id="tcVehLatLong" prefWidth="128.0" text="Location" />
+                              <TableColumn fx:id="tcVehDest" prefWidth="139.0" text="Destination" />
+                              <TableColumn fx:id="tcVehETA" prefWidth="121.0" text="ETA" />
+                              <TableColumn fx:id="tcDriverName" prefWidth="145.0" text="Driver Name" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="16.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle List">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="refreshFleetList" layoutX="720.0" layoutY="514.0" mnemonicParsing="false" onAction="#listFleet" prefHeight="25.0" prefWidth="69.0" text="Refresh" />
+                        <TextField fx:id="fleetFilterfield" layoutX="185.0" layoutY="21.0" />
+                        <Label layoutX="140.0" layoutY="25.0" text="Search" />
                      </children></AnchorPane>
                </content>
             </Tab>

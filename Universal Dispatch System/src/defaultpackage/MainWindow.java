@@ -15,6 +15,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -71,6 +72,28 @@ public class MainWindow implements Initializable {
     private TextField vehicleYom;
     @FXML
     private Button saveNewVeh;
+    @FXML
+    private Button refreshFleetList;
+    //fleet tab observable, filterable table
+    @FXML
+    private TextField fleetFilterfield;
+    @FXML
+    private TableView<String> tvFleetList;
+    @FXML
+    private TableColumn<String, String> tcVehId;
+    @FXML
+    private TableColumn<String, String> tcVehOnJob;
+    @FXML
+    private TableColumn<String, String> tcVehCustomer;
+    @FXML
+    private TableColumn<String, String> tcVehLatLong;
+    @FXML
+    private TableColumn<String, String> tcVehDest;
+    @FXML
+    private TableColumn<String, String> tcVehETA;
+    @FXML
+    private TableColumn<String, String> tcDriverName;
+    
     
     //jobs tab
     @FXML
@@ -121,6 +144,12 @@ public class MainWindow implements Initializable {
         Vehicles.addNewVehicle(vehicleReg.getText(), vehicleMake.getText(), 
               vehicleModel.getText(), Short.valueOf(vehicleYom.getText()));
         
+    }
+    
+    public void listFleet(){
+        String[][] str = Vehicles.listVehicles();
+        
+        System.out.print(str[0][1]);
     }
     
     public void addNewCustomer(){
