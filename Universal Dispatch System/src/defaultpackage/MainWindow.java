@@ -7,6 +7,10 @@ package defaultpackage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -93,6 +97,7 @@ public class MainWindow implements Initializable {
     private TableColumn<String, String> tcVehETA;
     @FXML
     private TableColumn<String, String> tcDriverName;
+    private ObservableList<ObservableList> fleetData;
     
     
     //jobs tab
@@ -147,9 +152,9 @@ public class MainWindow implements Initializable {
     }
     
     public void listFleet(){
-        String[][] str = Vehicles.listVehicles();
+
+
         
-        System.out.print(str[0][1]);
     }
     
     public void addNewCustomer(){
