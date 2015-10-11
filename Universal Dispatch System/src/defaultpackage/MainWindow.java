@@ -6,9 +6,10 @@
 package defaultpackage;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.util.Callback;
 
 /**
  *
@@ -37,6 +39,18 @@ public class MainWindow implements Initializable {
     private ListView driverList;
     @FXML
     private TableView activeJobs;
+    @FXML
+    private TextField homeCustomerPhone;
+    @FXML
+    private TextField homeCustomerName;
+    @FXML
+    private TextField homeCustomerAddress;
+    @FXML
+    private TextField homeCustomerPhoneSearch;
+    @FXML
+    private TextField homeCustomerNameSearch;
+    @FXML
+    private TextField homeCustomerAddressSearch;
     
     //settings tab
     @FXML
@@ -64,6 +78,8 @@ public class MainWindow implements Initializable {
     private TextField newDriverPlateNum;
     @FXML
     private ComboBox newDriverVehId;
+    @FXML
+    private Button refreshDriversTbl;
     
     //Fleet tab
     @FXML
@@ -82,25 +98,12 @@ public class MainWindow implements Initializable {
     @FXML
     private TextField fleetFilterfield;
     @FXML
-    private TableView<String> tvFleetList;
-    @FXML
-    private TableColumn<String, String> tcVehId;
-    @FXML
-    private TableColumn<String, String> tcVehOnJob;
-    @FXML
-    private TableColumn<String, String> tcVehCustomer;
-    @FXML
-    private TableColumn<String, String> tcVehLatLong;
-    @FXML
-    private TableColumn<String, String> tcVehDest;
-    @FXML
-    private TableColumn<String, String> tcVehETA;
-    @FXML
-    private TableColumn<String, String> tcDriverName;
-    private ObservableList<ObservableList> fleetData;
-    
-    
+    //private TableView tvFleetList;
+    private TableView<String[]> tvFleetList = new TableView<>();
+
     //jobs tab
+    @FXML
+    private TableView jobsTbl;
     @FXML
     private Button selectCustomer;
     @FXML
@@ -119,19 +122,27 @@ public class MainWindow implements Initializable {
     private CheckBox expedite;
     @FXML
     private Button saveJob;
+    @FXML
+    private Button refreshJobTbl;
     
     //customers tab
+    @FXML
+    private TableView tvCustomers;
     @FXML
     private TextField customerName;
     @FXML
     private TextField customerLoc;
     @FXML
     private Button saveNewCustomer;
+    @FXML
+    private TextField customerPhone;
    
     @FXML
     private TextArea customerNote;
     @FXML
     private RadioButton enableAddNewCustomer;
+    @FXML
+    private Button refreshCustTbl;
 
 
     @Override
@@ -143,6 +154,42 @@ public class MainWindow implements Initializable {
         Drivers.addNewDriver(newDriverFname.getText(),newDriverSname.getText(),newDriverPlateNum.getText());
 
     }
+    
+    //class list for refresh button calls
+    private ObservableList<String[]> fleetData;
+    public void listDrivers() {
+        
+        driversTabTbl.getColumns().clear();
+        
+        String[][] driverArray = Drivers.listDrivers();
+        String[] colnames = {"ID", "First Name", "Last Name", "Vehicle ID", "Plate Number", "Job ID"};
+        fleetData = FXCollections.observableArrayList();
+        ObservableList<String[]> cols = FXCollections.observableArrayList();
+        cols.addAll(colnames);
+        fleetData.addAll(Arrays.asList(driverArray));
+     
+
+        
+        for (int i = 0; i < driverArray[0].length; i++) {
+            
+            TableColumn tc = new TableColumn(colnames[i]);
+            
+            final int colNo = i;
+            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
+                    return new SimpleStringProperty((p.getValue()[colNo]));
+                }
+            });
+
+            tc.setPrefWidth(90);
+            driversTabTbl.getColumns().add(tc);
+        }
+
+        driversTabTbl.setItems(fleetData);
+        
+    }
+    
 
     public void addNewVehicle(){
         
@@ -152,14 +199,157 @@ public class MainWindow implements Initializable {
     }
     
     public void listFleet(){
-
-
         
+        tvFleetList.getColumns().clear();
+        
+        String[][] fleetArray = Vehicles.listVehicles();
+        String[] colnames = {"ID" , "Reg#", "Make", "Model" , "YOM", "Mileage(km)",
+                              "Last Serviced", "Date Due Service", "Date Last Cert.",
+                               "Date Due Cert.", "Current Location"};
+        ObservableList<String[]> data = FXCollections.observableArrayList();
+        ObservableList<String[]> cols = FXCollections.observableArrayList();
+
+        cols.addAll(colnames);
+        data.addAll(Arrays.asList(fleetArray));
+        //data.remove(0);//remove titles from data
+                
+        for (int i = 0; i < fleetArray[0].length; i++) {
+            TableColumn tc = new TableColumn(colnames[i]);
+            final int colNo = i;
+            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
+                    return new SimpleStringProperty((p.getValue()[colNo]));
+                }
+            });
+               
+            tc.setPrefWidth(90);
+            tvFleetList.getColumns().add(tc);
+        }
+
+        tvFleetList.setItems(data);
+
     }
     
     public void addNewCustomer(){
         
-        Customers.addNewCustomer(customerName.getText(),Short.valueOf(customerLoc.getText()),customerNote.getText());
+        Customers.addNewCustomer(customerName.getText(),customerPhone.getText(), Short.valueOf(customerLoc.getText()),customerNote.getText());
+    }
+    
+    private ObservableList<String[]> custData;
+    public void listCustomers(){
+        
+        tvCustomers.getColumns().clear();
+        
+        String[][] fleetArray = Customers.listCustomers();
+        String[] colnames = {"ID" , "Customer Name", "Accounts ID", "Address ID" , "Notes", "Phone"};
+        ObservableList<String[]> custData = FXCollections.observableArrayList();
+        ObservableList<String[]> cols = FXCollections.observableArrayList();
+
+        cols.addAll(colnames);
+        custData.addAll(Arrays.asList(fleetArray));
+        //data.remove(0);//remove titles from data
+                
+        for (int i = 0; i < fleetArray[0].length; i++) {
+            TableColumn tc = new TableColumn(colnames[i]);
+            final int colNo = i;
+            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
+                    return new SimpleStringProperty((p.getValue()[colNo]));
+                }
+            });
+               
+            tc.setPrefWidth(90);
+            tvCustomers.getColumns().add(tc);
+        }
+
+        tvCustomers.setItems(custData);
+    }
+    
+    //counter for textfield to fire off .contains in the array
+    static short numCounter;
+    public void homeSearchCustomer(){
+        
+        String[][] numArray;
+        String[][] locationsArray;
+        short customerLocationId = 0;
+        short customerId = 0;
+ 
+        numCounter++; 
+        
+        //check if array has been made
+        if(Customers.customers == null){
+        numArray = Customers.listCustomers();
+        locationsArray = Locations.listLocations();
+        }else{
+            numArray = Customers.customers;
+            locationsArray = Locations.locations;
+        }
+        
+        if (numCounter >= 4) {
+            //loop through numArray check for number match
+            for (int i = 0; i < numArray.length; ++i) {
+                if(numArray[i][5].contains(homeCustomerPhone.getText())){
+                    homeCustomerPhoneSearch.setText(numArray[i][5]);
+                    homeCustomerName.setText(numArray[i][1]);
+                    customerLocationId = Short.valueOf(numArray[i][3]);
+                    customerId = Short.valueOf(numArray[i][0]);
+                    System.out.println(numArray[i][5]);
+                }
+              
+            }
+            
+            //loop through address array and pull out via customer ID
+            
+            for(int i = 0; i < locationsArray.length; ++i){
+                if(Short.valueOf(locationsArray[i][0])==customerLocationId){
+                    System.out.print(locationsArray[i][0]);
+                    homeCustomerAddress.setText(locationsArray[i][1]);
+                    
+                }
+            }
+        }
+        
+        if(homeCustomerPhone.getCharacters().length()==0){
+            
+            homeCustomerPhoneSearch.clear();
+            homeCustomerName.clear();
+            homeCustomerAddress.clear();
+  
+        }    
+    }
+    
+    static short addressCounter = 0;
+    public void listCustomerAddress(){
+        
+        short customerId;
+        
+        String[][] addressArray;
+ 
+        addressCounter++; 
+        
+        //check if array has been made
+        if(Locations.locations == null){
+        addressArray = Locations.locations;
+        }else{
+            addressArray = Locations.locations;
+        }
+        
+        if (addressCounter >= 4) {
+            //loop through numArray check for number match
+            for (int i = 0; i < addressArray.length; ++i) {
+                if(addressArray[i][5].contains(homeCustomerAddress.getText())){
+                    homeCustomerAddressSearch.setText(addressArray[i][5]);
+                    System.out.print(addressArray[i][5]);
+                }else{
+                    homeCustomerAddressSearch.setText("New place press save");
+                }
+              
+            }
+        }
+        
+        
     }
     
     public void enableAddNewCustomerFields(){
@@ -188,6 +378,11 @@ public class MainWindow implements Initializable {
         }else{
             customerNote.setEditable(false);
         }
+        if(!customerPhone.isEditable()){
+            customerPhone.setEditable(true);
+        }else{
+            customerPhone.setEditable(false);
+        }
         
 
     }
@@ -201,6 +396,39 @@ public class MainWindow implements Initializable {
         
         Jobs.addNewJob(Short.valueOf(selectCustomerField.getText()), Short.valueOf(selectDriverField.getText()), 
                         Short.valueOf(selectDestinationField.getText()), isExpedited, driverMessage.getText());
+        
+    }
+    
+    private ObservableList<String[]> jobData;
+    public void listJobs(){
+        
+        jobsTbl.getColumns().clear();
+        
+        String[][] jobArray = Jobs.listJobs();
+        String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Dest. ID",
+                            "Departed", "ETA", "Is Expedited?", "Message"};
+        ObservableList<String[]> custData = FXCollections.observableArrayList();
+        ObservableList<String[]> cols = FXCollections.observableArrayList();
+
+        cols.addAll(colnames);
+        custData.addAll(Arrays.asList(jobArray));
+        //data.remove(0);//remove titles from data
+                
+        for (int i = 0; i < jobArray[0].length; i++) {
+            TableColumn tc = new TableColumn(colnames[i]);
+            final int colNo = i;
+            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
+                    return new SimpleStringProperty((p.getValue()[colNo]));
+                }
+            });
+               
+            tc.setPrefWidth(90);
+            jobsTbl.getColumns().add(tc);
+        }
+
+        jobsTbl.setItems(custData);
         
     }
 

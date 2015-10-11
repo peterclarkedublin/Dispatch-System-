@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
@@ -9,8 +10,9 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import np.com.ngopal.control.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
    <children>
       <TabPane layoutX="14.0" layoutY="72.0" prefHeight="804.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -18,42 +20,81 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Pane layoutX="269.0" layoutY="33.0" prefHeight="362.0" prefWidth="517.0">
+                        <Pane layoutX="333.0" layoutY="33.0" prefHeight="429.0" prefWidth="653.0" />
+                        <AnchorPane layoutY="571.0" maxWidth="1800.0" prefHeight="200.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <ImageView fitHeight="398.0" fitWidth="519.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/google-traffic-map.png" />
-                                 </image>
-                              </ImageView>
+                              <TableView layoutX="25.0" maxWidth="-Infinity" prefHeight="200.0" prefWidth="804.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn prefWidth="97.0" text="Customer" />
+                                  <TableColumn prefWidth="53.0" text="Destination" />
+                                    <TableColumn prefWidth="93.0" text="Departed Time" />
+                                    <TableColumn prefWidth="115.0" text="Current Location" />
+                                    <TableColumn prefWidth="216.0" text="ETA" />
+                                </columns>
+                              </TableView>
                            </children>
-                        </Pane>
-                        <ListView fx:id="driverList" layoutX="14.0" layoutY="33.0" prefHeight="346.0" prefWidth="216.0" />
-                        <Separator layoutX="12.0" layoutY="437.0" prefHeight="8.0" prefWidth="776.0" />
-                        <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="44.0" text="Drivers:" />
-                        <Label layoutX="269.0" layoutY="14.0" text="Location:" />
-                        <Button id="refreshDriversList" layoutX="174.0" layoutY="388.0" mnemonicParsing="false" onAction="#addNewDriver" text="Refresh" />
-                        <TableView layoutX="14.0" layoutY="492.0" prefHeight="200.0" prefWidth="771.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Customer" />
-                            <TableColumn prefWidth="75.0" text="Destination" />
-                              <TableColumn prefWidth="93.0" text="Departed Time" />
-                              <TableColumn prefWidth="115.0" text="Current Location" />
-                              <TableColumn prefWidth="73.0" text="ETA" />
-                          </columns>
-                        </TableView>
-                        <Text layoutX="14.0" layoutY="476.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Active Jobs">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
+                        </AnchorPane>
+                        <SplitPane dividerPositions="0.2905811623246493" layoutY="1.0" prefHeight="569.0" prefWidth="1000.0" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TabPane layoutX="6.0" layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="567.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <tabs>
+                                        <Tab text="Assign Job">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label layoutX="29.0" layoutY="56.0" text="Phone" />
+                                                      <Label layoutX="29.0" layoutY="127.0" text="Name" />
+                                                      <Label layoutX="29.0" layoutY="206.0" text="Address" />
+                                                      <Separator layoutY="308.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="308.0" />
+                                                      <Label layoutX="15.0" layoutY="14.0" text="Customer Search" />
+                                                      <Label layoutX="16.0" layoutY="336.0" text="Previous Destination Locations" />
+                                                      <TextField layoutX="110.0" layoutY="371.0" />
+                                                      <Label layoutX="30.0" layoutY="375.0" text="Address" />
+                                                      <TextField layoutX="110.0" layoutY="413.0" />
+                                                      <Label layoutX="30.0" layoutY="417.0" text="Address" />
+                                                      <Label layoutX="30.0" layoutY="463.0" text="Address" />
+                                                      <TextField layoutX="110.0" layoutY="459.0" />
+                                                      <Button fx:id="saveNewCust" layoutX="139.0" layoutY="269.0" mnemonicParsing="false" onAction="#homeSearchCustomer" text="Save New Customer" />
+                                                      <Button layoutX="200.0" layoutY="499.0" mnemonicParsing="false" text="Que Job" />
+                                                      <TextField fx:id="homeCustomerPhone" layoutX="110.0" layoutY="52.0" onKeyTyped="#homeSearchCustomer" />
+                                                      <TextField fx:id="homeCustomerName" layoutX="109.0" layoutY="123.0" />
+                                                      <TextField fx:id="homeCustomerAddress" layoutX="110.0" layoutY="202.0" />
+                                                      <TextField fx:id="homeCustomerPhoneSearch" editable="false" layoutX="110.0" layoutY="77.0" />
+                                                      <TextField fx:id="homeCustomerNameSearch" editable="false" layoutX="109.0" layoutY="148.0" />
+                                                      <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="110.0" layoutY="227.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Location Search">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="470.0">
+                                 <children>
+                                    <ImageView fitHeight="471.0" fitWidth="689.0" layoutX="1.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="7.0">
+                                       <image>
+                                          <Image url="@../images/google-traffic-map.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Jobs">
+          <Tab onSelectionChanged="#listJobs" text="Jobs">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Separator layoutX="14.0" layoutY="423.0" prefHeight="8.0" prefWidth="773.0" />
                         <Text layoutX="14.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Job">
                            <font>
                               <Font size="18.0" />
@@ -67,18 +108,7 @@
                         <TextField fx:id="selectDestinationField" layoutX="593.0" layoutY="503.0" prefHeight="25.0" prefWidth="188.0" />
                         <TextArea fx:id="driverMessage" layoutX="30.0" layoutY="576.0" prefHeight="185.0" prefWidth="387.0" />
                         <Label layoutX="30.0" layoutY="550.0" text="Message to driver" />
-                        <TableView layoutX="10.0" layoutY="53.0" prefHeight="360.0" prefWidth="781.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Job ID" />
-                            <TableColumn prefWidth="89.0" text="Customer" />
-                              <TableColumn prefWidth="92.0" text="Time Departed" />
-                              <TableColumn prefWidth="106.0" text="Destination" />
-                              <TableColumn prefWidth="113.0" text="Current Location" />
-                              <TableColumn minWidth="0.0" prefWidth="89.0" text="ETA" />
-                              <TableColumn prefWidth="99.0" text="Driver Name" />
-                              <TableColumn prefWidth="102.0" text="Expedited?" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="jobsTbl" layoutX="10.0" layoutY="53.0" prefHeight="360.0" prefWidth="981.0" />
                         <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Active Jobs">
                            <font>
                               <Font size="18.0" />
@@ -86,26 +116,17 @@
                         </Text>
                         <CheckBox fx:id="expedite" layoutX="28.0" layoutY="470.0" mnemonicParsing="false" text="Expedite this Job" />
                         <Button fx:id="saveJob" layoutX="717.0" layoutY="736.0" mnemonicParsing="false" onAction="#addNewJob" prefHeight="25.0" prefWidth="53.0" text="Save" />
+                        <Button fx:id="refreshJobTbl" layoutX="930.0" layoutY="426.0" mnemonicParsing="false" onAction="#listJobs" text="Refresh" />
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Drivers">
+            <Tab onSelectionChanged="#listDrivers" text="Drivers">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Pane layoutX="2.0" layoutY="14.0" prefHeight="293.0" prefWidth="800.0">
+                        <Pane layoutX="2.0" layoutY="14.0" prefHeight="491.0" prefWidth="991.0">
                            <children>
-                              <TableView fx:id="driversTabTbl" layoutY="-1.0" prefHeight="494.0" prefWidth="794.0" tableMenuButtonVisible="true">
-                                <columns>
-                                  <TableColumn prefWidth="57.0" text="ID" />
-                                  <TableColumn prefWidth="79.0" text="First Name" />
-                                    <TableColumn prefWidth="89.0" text="Last Name" />
-                                    <TableColumn prefWidth="75.0" text="Vehicle ID" />
-                                    <TableColumn prefWidth="75.0" text="TAXI Plate#" />
-                                    <TableColumn prefWidth="88.0" text="Current Job" />
-                                    <TableColumn prefWidth="110.0" text="Parked?" />
-                                </columns>
-                              </TableView>
+                              <TableView fx:id="driversTabTbl" layoutX="10.0" layoutY="-1.0" prefHeight="494.0" prefWidth="975.0" tableMenuButtonVisible="true" />
                            </children>
                         </Pane>
                         <Separator layoutX="13.0" layoutY="608.0" prefHeight="12.0" prefWidth="774.0" />
@@ -123,32 +144,27 @@
                         <ComboBox fx:id="newDriverVehId" layoutX="686.0" layoutY="680.0" prefHeight="25.0" prefWidth="61.0" visible="false" />
                         <Label layoutX="620.0" layoutY="684.0" text="Vehicle ID" visible="false" />
                         <Button fx:id="addNewDriver" layoutX="692.0" layoutY="718.0" mnemonicParsing="false" onAction="#addNewDriver" prefHeight="25.0" prefWidth="55.0" text="Save" />
+                        <Button fx:id="refreshDriversTbl" layoutX="930.0" layoutY="520.0" mnemonicParsing="false" onAction="#listDrivers" text="Refresh" />
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Customers">
+            <Tab onSelectionChanged="#listCustomers" text="Customers">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="783.0">
-                          <columns>
-                            <TableColumn prefWidth="38.0" text="Name" />
-                            <TableColumn prefWidth="78.0" text="Location" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="tvCustomers" layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="783.0" />
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Separator layoutX="9.0" layoutY="447.0" prefHeight="8.0" prefWidth="779.0" />
                         <Text layoutX="20.0" layoutY="489.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Customer">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
                         <TextField fx:id="customerName" editable="false" layoutX="98.0" layoutY="512.0" prefHeight="25.0" prefWidth="144.0" text="name" />
-                        <TextField fx:id="customerLoc" editable="false" layoutX="421.0" layoutY="512.0">
+                        <TextField fx:id="customerLoc" editable="false" layoutX="633.0" layoutY="512.0">
                            <tooltip>
                               <Tooltip text="Start typing to search">
                                  <font>
@@ -158,19 +174,29 @@
                            </tooltip>
                         </TextField>
                         <Label layoutX="35.0" layoutY="516.0" text="Name" />
-                        <Label layoutX="349.0" layoutY="516.0" text="Location" />
+                        <Label layoutX="569.0" layoutY="516.0" text="Location" />
                         <Button fx:id="saveNewCustomer" layoutX="724.0" layoutY="736.0" mnemonicParsing="false" onAction="#addNewCustomer" prefHeight="25.0" prefWidth="58.0" text="Save" visible="false" />
                         <TextArea fx:id="customerNote" editable="false" layoutX="16.0" layoutY="575.0" prefHeight="149.0" prefWidth="766.0" />
                         <Label layoutX="25.0" layoutY="551.0" text="Customer Notes:" />
                         <RadioButton fx:id="enableAddNewCustomer" layoutX="185.0" layoutY="473.0" mnemonicParsing="false" onAction="#enableAddNewCustomerFields" text="Enable Add New Customer" />
+                        <Button fx:id="refreshCustTbl" layoutX="732.0" layoutY="426.0" mnemonicParsing="false" onAction="#listCustomers" text="Refresh" />
+                        <Label layoutX="298.0" layoutY="516.0" text="Phone" />
+                        <TextField fx:id="customerPhone" editable="false" layoutX="343.0" layoutY="512.0">
+                           <tooltip>
+                              <Tooltip text="Start typing to search">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Tooltip>
+                           </tooltip>
+                        </TextField>
                      </children></AnchorPane>
                </content>
             </Tab>
-            <Tab text="Fleet">
+            <Tab onSelectionChanged="#listFleet" text="Fleet">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Separator layoutX="16.0" layoutY="548.0" prefHeight="6.0" prefWidth="769.0" />
                         <Label layoutX="38.0" layoutY="653.0" text="Registraion #" />
                         <Label layoutX="221.0" layoutY="653.0" text="Make" />
                         <Label layoutX="412.0" layoutY="653.0" text="Model" />
@@ -185,25 +211,13 @@
                         <Label layoutX="589.0" layoutY="653.0" text="Year of Manufacture" />
                         <TextField fx:id="vehicleYom" layoutX="705.0" layoutY="649.0" prefHeight="25.0" prefWidth="67.0" />
                         <Button fx:id="saveNewVeh" layoutX="718.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewVehicle" prefHeight="25.0" prefWidth="54.0" text="save" />
-                        <TableView fx:id="tvFleetList" layoutX="16.0" layoutY="60.0" prefHeight="448.0" prefWidth="773.0">
-                          <columns>
-                            <TableColumn fx:id="tcVehId" prefWidth="46.0" text="ID" />
-                            <TableColumn fx:id="tcVehOnJob" prefWidth="69.0" text="On Job" />
-                              <TableColumn fx:id="tcVehCustomer" prefWidth="121.0" text="Customer" />
-                              <TableColumn fx:id="tcVehLatLong" prefWidth="128.0" text="Location" />
-                              <TableColumn fx:id="tcVehDest" prefWidth="139.0" text="Destination" />
-                              <TableColumn fx:id="tcVehETA" prefWidth="121.0" text="ETA" />
-                              <TableColumn fx:id="tcDriverName" prefWidth="145.0" text="Driver Name" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="tvFleetList" layoutX="16.0" layoutY="60.0" prefHeight="448.0" prefWidth="974.0" />
                         <Text layoutX="16.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle List">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Button fx:id="refreshFleetList" layoutX="720.0" layoutY="514.0" mnemonicParsing="false" onAction="#listFleet" prefHeight="25.0" prefWidth="69.0" text="Refresh" />
-                        <TextField fx:id="fleetFilterfield" layoutX="185.0" layoutY="21.0" />
-                        <Label layoutX="140.0" layoutY="25.0" text="Search" />
+                        <Button fx:id="refreshFleetList" layoutX="921.0" layoutY="515.0" mnemonicParsing="false" onAction="#listFleet" prefHeight="25.0" prefWidth="69.0" text="Refresh" />
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -211,7 +225,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Accordion layoutX="14.0" layoutY="14.0" prefHeight="747.0" prefWidth="331.0">
+                        <Accordion prefHeight="747.0" prefWidth="331.0">
                           <panes>
                             <TitledPane animated="false" text="Database Settings">
                               <content>
@@ -242,7 +256,12 @@
                             </TitledPane>
                           </panes>
                         </Accordion>
-                        <Separator layoutX="399.0" layoutY="14.0" orientation="VERTICAL" prefHeight="737.0" prefWidth="0.0" />
+                        <TableView layoutX="393.0" prefHeight="775.0" prefWidth="391.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
                </content>
