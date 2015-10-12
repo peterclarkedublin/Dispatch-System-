@@ -1,4 +1,5 @@
-https://rterp.wordpress.com/2014/06/05/add-google-maps-to-your-netbeans-rcp-application/
+#Google Maps Api for Java#
+https://developers.google.com/api-client-library/java/apis/mapsengine/v1
 
 # README #
 
