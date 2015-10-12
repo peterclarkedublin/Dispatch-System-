@@ -47,22 +47,24 @@
                                                       <Label layoutX="29.0" layoutY="56.0" text="Phone" />
                                                       <Label layoutX="29.0" layoutY="127.0" text="Name" />
                                                       <Label layoutX="29.0" layoutY="206.0" text="Address" />
-                                                      <Separator layoutY="286.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="286.0" />
+                                                      <Separator layoutY="315.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
                                                       <Label layoutX="15.0" layoutY="14.0" text="Customer Search" />
-                                                      <Label layoutX="16.0" layoutY="314.0" text="Previous Destination Locations" />
-                                                      <TextField layoutX="110.0" layoutY="349.0" />
-                                                      <Label layoutX="30.0" layoutY="353.0" text="Address" />
-                                                      <TextField layoutX="110.0" layoutY="391.0" />
-                                                      <Label layoutX="30.0" layoutY="395.0" text="Address" />
-                                                      <Label layoutX="30.0" layoutY="441.0" text="Address" />
-                                                      <TextField layoutX="110.0" layoutY="437.0" />
-                                                      <Button layoutX="200.0" layoutY="477.0" mnemonicParsing="false" text="Que Job" />
+                                                      <Label layoutX="22.0" layoutY="328.0" text="Previous Destination Locations" />
+                                                      <TextField layoutX="116.0" layoutY="363.0" />
+                                                      <Label layoutX="36.0" layoutY="367.0" text="Address 1" />
+                                                      <TextField layoutX="116.0" layoutY="405.0" />
+                                                      <Label layoutX="36.0" layoutY="409.0" text="Address 2" />
+                                                      <Label layoutX="36.0" layoutY="455.0" text="Address 3" />
+                                                      <TextField layoutX="116.0" layoutY="451.0" />
+                                                      <Button layoutX="206.0" layoutY="491.0" mnemonicParsing="false" text="Que Job" />
                                                       <TextField fx:id="homeCustomerPhone" layoutX="110.0" layoutY="52.0" onKeyTyped="#homeSearchCustomer" />
                                                       <TextField fx:id="homeCustomerName" layoutX="109.0" layoutY="123.0" />
                                                       <TextField fx:id="homeCustomerAddress" layoutX="110.0" layoutY="202.0" />
                                                       <TextField fx:id="homeCustomerPhoneSearch" editable="false" layoutX="110.0" layoutY="77.0" />
                                                       <TextField fx:id="homeCustomerNameSearch" editable="false" layoutX="109.0" layoutY="148.0" />
                                                       <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="110.0" layoutY="227.0" />
+                                                      <TextField fx:id="homeCustomerNotes" layoutX="110.0" layoutY="277.0" />
+                                                      <Label fx:id="homeCustomerNotesLbl" layoutX="15.0" layoutY="281.0" text="Customer Notes" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
@@ -78,11 +80,12 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="470.0">
                                  <children>
-                                    <ImageView fitHeight="471.0" fitWidth="689.0" layoutX="1.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="7.0">
+                                    <ImageView fitHeight="471.0" fitWidth="689.0" layoutX="1.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="7.0">
                                        <image>
                                           <Image url="@../images/google-traffic-map.png" />
                                        </image>
                                     </ImageView>
+                                    <WebView fx:id="mapBrowser" layoutX="133.0" layoutY="122.0" prefHeight="567.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -151,7 +154,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvCustomers" layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="783.0" />
+                        <TableView fx:id="tvCustomers" layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="985.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" />
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
                            <font>
                               <Font size="18.0" />
@@ -178,7 +181,7 @@
                         <TextArea fx:id="customerNote" editable="false" layoutX="16.0" layoutY="575.0" prefHeight="149.0" prefWidth="766.0" />
                         <Label layoutX="25.0" layoutY="551.0" text="Customer Notes:" />
                         <RadioButton fx:id="enableAddNewCustomer" layoutX="185.0" layoutY="473.0" mnemonicParsing="false" onAction="#enableAddNewCustomerFields" text="Enable Add New Customer" />
-                        <Button fx:id="refreshCustTbl" layoutX="732.0" layoutY="426.0" mnemonicParsing="false" onAction="#listCustomers" text="Refresh" />
+                        <Button fx:id="refreshCustTbl" layoutX="930.0" layoutY="426.0" mnemonicParsing="false" onAction="#listCustomers" text="Refresh" />
                         <Label layoutX="298.0" layoutY="516.0" text="Phone" />
                         <TextField fx:id="customerPhone" editable="false" layoutX="343.0" layoutY="512.0">
                            <tooltip>

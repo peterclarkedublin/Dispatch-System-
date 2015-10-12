@@ -22,6 +22,7 @@ public class Customers {
     private String customerNote;
     private String customerPhone;
     static String[][] customers;
+    
 
     static public void addNewCustomer(String customerName, String customerPhone,  short customerLocId, String note) {
         //add driver to database
@@ -69,7 +70,7 @@ public class Customers {
 
             int numCounter;
             for (numCounter = 0; rs.next(); numCounter++);
-            customers = new String[numCounter][6];
+            customers = new String[numCounter][9];
             rs.beforeFirst();
             numCounter = 0;
 
@@ -80,6 +81,9 @@ public class Customers {
                 short addressLocId = rs.getShort(4);
                 String msg = rs.getString(5);
                 String custNum = rs.getString(6);
+                String prevDestId1 = rs.getString(7);
+                String prevDestId2 = rs.getString(8);
+                String prevDestId3 = rs.getString(9);
 
                 customers[numCounter][0] = String.valueOf(id);
                 customers[numCounter][1] = name;
@@ -87,6 +91,9 @@ public class Customers {
                 customers[numCounter][3] = String.valueOf(addressLocId);
                 customers[numCounter][4] = msg;
                 customers[numCounter][5] = custNum;
+                customers[numCounter][6] = prevDestId1;
+                customers[numCounter][7] = prevDestId2;
+                customers[numCounter][8] = prevDestId3;
 
                 numCounter++;
                 

@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -25,6 +26,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.util.Callback;
 
 /**
@@ -52,6 +55,12 @@ public class MainWindow implements Initializable {
     private TextField homeCustomerNameSearch;
     @FXML
     private TextField homeCustomerAddressSearch;
+    @FXML
+    private TextField homeCustomerNotes;
+    @FXML
+    private Label homeCustomerNotesLbl;
+    @FXML
+    private WebView mapBrowser;
     
     //settings tab
     @FXML
@@ -243,7 +252,7 @@ public class MainWindow implements Initializable {
         tvCustomers.getColumns().clear();
         
         String[][] fleetArray = Customers.listCustomers();
-        String[] colnames = {"ID" , "Customer Name", "Accounts ID", "Address ID" , "Notes", "Phone"};
+        String[] colnames = {"ID" , "Customer Name", "Accounts ID", "Address ID" , "Notes", "Phone", "Dest. ID 1", "Dest. ID 2", "Dest. ID 3"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
 
@@ -271,6 +280,10 @@ public class MainWindow implements Initializable {
     //counter for textfield to fire off .contains in the array
     static short numCounter;
     public void homeSearchCustomer(){
+
+        mapBrowser = new WebView();
+        WebEngine webEngine = mapBrowser.getEngine();
+        webEngine.load("http://www.google.com");
         
         String[][] numArray;
         String[][] locationsArray;
@@ -294,14 +307,19 @@ public class MainWindow implements Initializable {
                 if(numArray[i][5].contains(homeCustomerPhone.getText())){
                     homeCustomerPhoneSearch.setText(numArray[i][5]);
                     homeCustomerName.setText(numArray[i][1]);
+                    homeCustomerNameSearch.clear();
+                    homeCustomerAddressSearch.clear();
+                    
                     customerLocationId = Short.valueOf(numArray[i][3]);
                     customerId = Short.valueOf(numArray[i][0]);
-                    System.out.println(numArray[i][5]);
+
                 }else{
                     if (homeCustomerPhone.getText() != numArray[i][5]) {
+                        homeCustomerName.clear();
+                        homeCustomerAddress.clear();
                         homeCustomerPhoneSearch.setText("New number");
-                        homeCustomerName.setText("New name");
-                        homeCustomerAddress.setText("new Address");
+                        homeCustomerNameSearch.setText("New name");
+                        homeCustomerAddressSearch.setText("New Address");
 
                     }
                 }
@@ -409,6 +427,7 @@ public class MainWindow implements Initializable {
         Jobs.addNewJob(Short.valueOf(selectCustomerField.getText()), Short.valueOf(selectDriverField.getText()), 
                         Short.valueOf(selectDestinationField.getText()), isExpedited, driverMessage.getText());
         
+        
     }
     
     private ObservableList<String[]> jobData;
@@ -418,7 +437,7 @@ public class MainWindow implements Initializable {
         
         String[][] jobArray = Jobs.listJobs();
         String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Dest. ID",
-                            "Departed", "ETA", "Is Expedited?", "Message"};
+                            "Departed", "ETA", "Is Expedited?", "Message", "Is Active?"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
 
@@ -446,7 +465,7 @@ public class MainWindow implements Initializable {
 
     
    
-    
+
     
     
     

@@ -73,7 +73,7 @@ public class Jobs {
 
             int numCounter;
             for(numCounter = 0; rs.next(); numCounter++);
-            jobsList = new String[numCounter][9];
+            jobsList = new String[numCounter][10];
             rs.beforeFirst();
             numCounter = 0;
 
@@ -87,6 +87,8 @@ public class Jobs {
                 String eta = rs.getString(7);
                 byte isExpedited = rs.getByte(8);
                 String msg = rs.getString(9);
+                byte isActive = rs.getByte(10);
+        
                 
                 
 
@@ -99,6 +101,7 @@ public class Jobs {
                 jobsList[numCounter][6] = eta;
                 jobsList[numCounter][7] = String.valueOf(isExpedited);
                 jobsList[numCounter][8] = msg;
+                jobsList[numCounter][9] = String.valueOf(isActive);
 
                 numCounter++;
                 
