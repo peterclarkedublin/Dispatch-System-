@@ -65,11 +65,13 @@
                                                       <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="110.0" layoutY="227.0" />
                                                       <TextField fx:id="homeCustomerNotes" layoutX="110.0" layoutY="277.0" />
                                                       <Label fx:id="homeCustomerNotesLbl" layoutX="15.0" layoutY="281.0" text="Customer Notes" />
+                                                      <Button layoutX="118.0" layoutY="19.0" mnemonicParsing="false" onAction="#setDirCoords" text="Change" />
+                                                      <Button layoutX="191.0" layoutY="19.0" mnemonicParsing="false" onAction="#showAllConductores" text="ShowAll" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
                                         </Tab>
-                                        <Tab text="Location Search">
+                                        <Tab text="Driver Locations Map">
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                           </content>
@@ -85,7 +87,7 @@
                                           <Image url="@../images/google-traffic-map.png" />
                                        </image>
                                     </ImageView>
-                                    <WebView fx:id="mapBrowser" layoutX="133.0" layoutY="122.0" prefHeight="567.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <WebView fx:id="mapaWebView" layoutX="133.0" layoutY="122.0" prefHeight="567.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </items>

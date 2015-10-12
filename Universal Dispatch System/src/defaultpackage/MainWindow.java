@@ -9,9 +9,12 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
+import javafx.concurrent.Worker.State;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,6 +29,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -59,8 +63,6 @@ public class MainWindow implements Initializable {
     private TextField homeCustomerNotes;
     @FXML
     private Label homeCustomerNotesLbl;
-    @FXML
-    private WebView mapBrowser;
     
     //settings tab
     @FXML
@@ -154,11 +156,84 @@ public class MainWindow implements Initializable {
     @FXML
     private Button refreshCustTbl;
 
+    
+    //maps
+    @FXML
+    Button changeConductorButton;
 
+    @FXML
+    ComboBox<String> conductorComboBox;
+
+    @FXML
+    WebView mapaWebView;
+
+    WebEngine engine;
+    //AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs
+    double lat;
+    double lng;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        fillComboBoxConductor();
+        final URL urlGoogleMaps = getClass().getResource("maps_directions.html");
+        engine = mapaWebView.getEngine();
+        lat = 53.349064;
+        lng = -6.266736;
+        engine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+                    public void changed(ObservableValue ov, State oldState, State newState) {
+                        if (newState == Worker.State.SUCCEEDED) {
+//                            engine.executeScript(""
+//                                    + "window.lat = " + lat + ";"
+//                                    + "window.lon = " + lng + ";"
+//                                    + "document.goToLocation(window.lat, window.lon);"
+//                            );
+                        }
+                    }
+                });
+
+        engine.setJavaScriptEnabled(true);
+        engine.load(urlGoogleMaps.toExternalForm());
     }
+
+    private void fillComboBoxConductor() {
+    //code to fill ComboBox
+    }
+
+    @FXML
+    private void changeConductor() {
+        lat = lat + 5;
+        lng = lng + 5;
+        engine = mapaWebView.getEngine();
+        engine.executeScript("addMarker(" + lat + "," + lng + ");");
+        System.out.println("added marker");
+ 
+    }
+    
+        @FXML
+    private void setDirCoords() {
+        String start = "53.34481274192986, -6.26495361328125";
+        String end = "53.32349126597425, -6.3480377197265625";
+        engine = mapaWebView.getEngine();
+        engine.executeScript("setDirStart("+"\""+ start+"\"" + ");");
+        engine.executeScript("setDirEnd("+"\""+ end +"\""+ ");");
+        engine.executeScript("getDirs();");
+        //System.out.println("setDirCoords(" + start + "," + end + ");");
+        
+ 
+    }
+    
+    @FXML
+    private void showAllConductores() {
+        for (int i = 0; i < 6; i++) {
+            lat = lat + 5;
+            lng = lng + 5;
+            engine.executeScript("arrayConductores.push({x:5, y:3});");
+
+        }
+        engine.executeScript("addAllMarkers();");
+
+    }
+
     
     public void addNewDriver() {
         Drivers.addNewDriver(newDriverFname.getText(),newDriverSname.getText(),newDriverPlateNum.getText());
@@ -281,16 +356,10 @@ public class MainWindow implements Initializable {
     static short numCounter;
     public void homeSearchCustomer(){
 
-        mapBrowser = new WebView();
-        WebEngine webEngine = mapBrowser.getEngine();
-        webEngine.load("http://www.google.com");
-        
         String[][] numArray;
         String[][] locationsArray;
         short customerLocationId = 0;
-        short customerId = 0;
- 
-        numCounter++; 
+        short customerId = 0; 
         
         //check if array has been made
         if(Customers.customers == null){
@@ -301,7 +370,7 @@ public class MainWindow implements Initializable {
             locationsArray = Locations.locations;
         }
         
-        if (numCounter >= 4) {
+        if (homeCustomerPhone.getCharacters().length() >= 4) {
             //loop through numArray check for number match
             for (int i = 0; i < numArray.length; ++i) {
                 if(numArray[i][5].contains(homeCustomerPhone.getText())){
@@ -309,12 +378,13 @@ public class MainWindow implements Initializable {
                     homeCustomerName.setText(numArray[i][1]);
                     homeCustomerNameSearch.clear();
                     homeCustomerAddressSearch.clear();
+                    System.out.println(numArray[i][5]);
                     
                     customerLocationId = Short.valueOf(numArray[i][3]);
                     customerId = Short.valueOf(numArray[i][0]);
 
                 }else{
-                    if (homeCustomerPhone.getText() != numArray[i][5]) {
+                    if (homeCustomerPhone.getText() != numArray[i][5] && homeCustomerPhone.getCharacters().length() > 7) {
                         homeCustomerName.clear();
                         homeCustomerAddress.clear();
                         homeCustomerPhoneSearch.setText("New number");
@@ -323,14 +393,13 @@ public class MainWindow implements Initializable {
 
                     }
                 }
-              
             }
             
             //loop through address array and pull out via customer ID
             
             for(int i = 0; i < locationsArray.length; ++i){
                 if(Short.valueOf(locationsArray[i][0])==customerLocationId){
-                    System.out.print(locationsArray[i][0]);
+                    //System.out.print(locationsArray[i][0]);
                     homeCustomerAddress.setText(locationsArray[i][1]);
                     
                 }
@@ -343,7 +412,6 @@ public class MainWindow implements Initializable {
                 homeCustomerPhoneSearch.clear();
                 homeCustomerName.clear();
                 homeCustomerAddress.clear();
-                numCounter--;
 
             }
         });
