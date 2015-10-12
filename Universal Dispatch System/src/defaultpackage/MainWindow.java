@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
 /**
@@ -296,6 +297,13 @@ public class MainWindow implements Initializable {
                     customerLocationId = Short.valueOf(numArray[i][3]);
                     customerId = Short.valueOf(numArray[i][0]);
                     System.out.println(numArray[i][5]);
+                }else{
+                    if (homeCustomerPhone.getText() != numArray[i][5]) {
+                        homeCustomerPhoneSearch.setText("New number");
+                        homeCustomerName.setText("New name");
+                        homeCustomerAddress.setText("new Address");
+
+                    }
                 }
               
             }
@@ -311,13 +319,17 @@ public class MainWindow implements Initializable {
             }
         }
         
-        if(homeCustomerPhone.getCharacters().length()==0){
-            
-            homeCustomerPhoneSearch.clear();
-            homeCustomerName.clear();
-            homeCustomerAddress.clear();
-  
-        }    
+        homeCustomerPhone.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+
+                homeCustomerPhoneSearch.clear();
+                homeCustomerName.clear();
+                homeCustomerAddress.clear();
+                numCounter--;
+
+            }
+        });
+   
     }
     
     static short addressCounter = 0;

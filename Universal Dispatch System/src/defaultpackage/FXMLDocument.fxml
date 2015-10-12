@@ -47,17 +47,16 @@
                                                       <Label layoutX="29.0" layoutY="56.0" text="Phone" />
                                                       <Label layoutX="29.0" layoutY="127.0" text="Name" />
                                                       <Label layoutX="29.0" layoutY="206.0" text="Address" />
-                                                      <Separator layoutY="308.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="308.0" />
+                                                      <Separator layoutY="286.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="286.0" />
                                                       <Label layoutX="15.0" layoutY="14.0" text="Customer Search" />
-                                                      <Label layoutX="16.0" layoutY="336.0" text="Previous Destination Locations" />
-                                                      <TextField layoutX="110.0" layoutY="371.0" />
-                                                      <Label layoutX="30.0" layoutY="375.0" text="Address" />
-                                                      <TextField layoutX="110.0" layoutY="413.0" />
-                                                      <Label layoutX="30.0" layoutY="417.0" text="Address" />
-                                                      <Label layoutX="30.0" layoutY="463.0" text="Address" />
-                                                      <TextField layoutX="110.0" layoutY="459.0" />
-                                                      <Button fx:id="saveNewCust" layoutX="139.0" layoutY="269.0" mnemonicParsing="false" onAction="#homeSearchCustomer" text="Save New Customer" />
-                                                      <Button layoutX="200.0" layoutY="499.0" mnemonicParsing="false" text="Que Job" />
+                                                      <Label layoutX="16.0" layoutY="314.0" text="Previous Destination Locations" />
+                                                      <TextField layoutX="110.0" layoutY="349.0" />
+                                                      <Label layoutX="30.0" layoutY="353.0" text="Address" />
+                                                      <TextField layoutX="110.0" layoutY="391.0" />
+                                                      <Label layoutX="30.0" layoutY="395.0" text="Address" />
+                                                      <Label layoutX="30.0" layoutY="441.0" text="Address" />
+                                                      <TextField layoutX="110.0" layoutY="437.0" />
+                                                      <Button layoutX="200.0" layoutY="477.0" mnemonicParsing="false" text="Que Job" />
                                                       <TextField fx:id="homeCustomerPhone" layoutX="110.0" layoutY="52.0" onKeyTyped="#homeSearchCustomer" />
                                                       <TextField fx:id="homeCustomerName" layoutX="109.0" layoutY="123.0" />
                                                       <TextField fx:id="homeCustomerAddress" layoutX="110.0" layoutY="202.0" />
