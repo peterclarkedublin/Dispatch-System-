@@ -12,18 +12,19 @@
 <?import javafx.scene.layout.*?>
 <?import np.com.ngopal.control.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
+<AnchorPane id="AnchorPane" fx:id="mainAnchorPane" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="defaultpackage.MainWindow">
    <children>
       <TabPane layoutX="14.0" layoutY="72.0" prefHeight="804.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab fx:id="homeTab" onSelectionChanged="#listJobs" text="UDS Home">
+          <Tab fx:id="homeTab" text="UDS Home">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane layoutX="333.0" layoutY="33.0" prefHeight="429.0" prefWidth="653.0" />
                         <AnchorPane layoutY="571.0" maxWidth="1800.0" prefHeight="200.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <TableView fx:id="homeJobsList" layoutX="25.0" maxWidth="-Infinity" onMouseClicked="#jobListController" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TableView fx:id="homeJobsList" layoutX="25.0" maxWidth="-Infinity" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 </TableView>
                            </children>
                         </AnchorPane>
                         <SplitPane dividerPositions="0.2905811623246493" layoutY="1.0" prefHeight="569.0" prefWidth="1000.0" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
@@ -103,7 +104,7 @@
                         <TextField fx:id="selectDestinationField" layoutX="856.0" layoutY="503.0" prefHeight="25.0" prefWidth="121.0" />
                         <TextArea fx:id="driverMessage" layoutX="30.0" layoutY="576.0" prefHeight="181.0" prefWidth="387.0" />
                         <Label layoutX="30.0" layoutY="550.0" text="Message to driver" />
-                        <TableView fx:id="jobsTbl" layoutX="10.0" layoutY="53.0" prefHeight="360.0" prefWidth="981.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="9.0" />
+                        <TableView fx:id="jobsTbl" layoutX="10.0" layoutY="53.0" prefHeight="360.0" prefWidth="981.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Text layoutX="14.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Active Jobs">
                            <font>
                               <Font size="18.0" />
@@ -121,11 +122,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Pane layoutX="2.0" layoutY="14.0" prefHeight="491.0" prefWidth="991.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="7.0">
-                           <children>
-                              <TableView fx:id="driversTabTbl" layoutX="10.0" layoutY="-1.0" prefHeight="494.0" prefWidth="975.0" tableMenuButtonVisible="true" />
-                           </children>
-                        </Pane>
+                        <TableView fx:id="driversTabTbl" layoutX="15.0" layoutY="14.0" prefHeight="494.0" prefWidth="975.0" tableMenuButtonVisible="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Separator layoutX="13.0" layoutY="608.0" prefHeight="12.0" prefWidth="774.0" />
                         <Text layoutX="25.0" layoutY="657.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add New Driver">
                            <font>
@@ -149,7 +146,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tvCustomers" layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="985.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="8.0" />
+                        <TableView fx:id="tvCustomers" layoutX="7.0" layoutY="44.0" prefHeight="375.0" prefWidth="985.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
                            <font>
                               <Font size="18.0" />
@@ -208,7 +205,7 @@
                         <Label layoutX="589.0" layoutY="653.0" text="Year of Manufacture" />
                         <TextField fx:id="vehicleYom" layoutX="705.0" layoutY="649.0" prefHeight="25.0" prefWidth="67.0" />
                         <Button fx:id="saveNewVeh" layoutX="718.0" layoutY="708.0" mnemonicParsing="false" onAction="#addNewVehicle" prefHeight="25.0" prefWidth="54.0" text="save" />
-                        <TableView fx:id="tvFleetList" layoutX="16.0" layoutY="60.0" prefHeight="448.0" prefWidth="974.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="10.0" />
+                        <TableView fx:id="tvFleetList" layoutX="16.0" layoutY="60.0" prefHeight="448.0" prefWidth="974.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Text layoutX="16.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle List">
                            <font>
                               <Font size="18.0" />

@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -42,6 +43,9 @@ import javafx.util.Callback;
  */
 public class MainWindow implements Initializable {
 
+    @FXML
+    private AnchorPane mainAnchorPane;
+    
     //home tab
     @FXML
     private Tab homeTab;
@@ -69,6 +73,7 @@ public class MainWindow implements Initializable {
     private Label homeCustomerNotesLbl;
     @FXML
     private TableView homeJobsList;
+
     
     //settings tab
     @FXML
@@ -186,6 +191,8 @@ public class MainWindow implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        listJobs();
+        
         fillComboBoxConductor();
         final URL urlGoogleMaps = getClass().getResource("maps_directions.html");
         engine = mapaWebView.getEngine();
@@ -277,7 +284,7 @@ public class MainWindow implements Initializable {
                 }
             });
 
-            tc.setPrefWidth(90);
+            tc.setPrefWidth(120);
             driversTabTbl.getColumns().add(tc);
         }
 
@@ -520,35 +527,34 @@ public class MainWindow implements Initializable {
         }
 
         String[][] jobArray = Jobs.listJobs();
-        String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Pickup Location", "Dest. ID",
-                            "Departed", "ETA", "Is Expedited?", "Message", "Is Active?", "Time Created"};
+        String[] colnames = {"Active" , "ID", "Type", "Customer" , "Driver", "Created",
+                            "Departed", "ETA", "Message"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
-
         cols.addAll(colnames);
         custData.addAll(Arrays.asList(jobArray));
         //data.remove(0);//remove titles from data
-                
         for (int i = 0; i < jobArray[0].length; i++) {
             TableColumn tc = new TableColumn(colnames[i]);
+ 
             final int colNo = i;
             tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
                 @Override
                 public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
                     return new SimpleStringProperty((p.getValue()[colNo]));
+                    
                 }
             });
                
-            tc.setPrefWidth(90);
+            tc.setPrefWidth(75);
+            
             if (homeTab.isSelected()) {
                 homeJobsList.getColumns().add(tc);
             } else {
                 if (jobsTab.isSelected()) {
                     jobsTbl.getColumns().add(tc);
                 }
-            }
-            //homeJobsList.setFixedCellSize(3);
-            
+            };
         }
         
         if(homeTab.isSelected()){
@@ -558,46 +564,12 @@ public class MainWindow implements Initializable {
                 jobsTbl.setItems(custData);
             }
         }
+       String[][] str = Jobs.getJobLocations(1, 7);
+            System.out.print(str[0][1]);
     
     }
     
-    public void jobListController(){
-        
-        //String tmp = "0";
-        
-        String pickupLoc  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[4];
-        String destination  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[5];
-        
-        setJobMapRoute(pickupLoc, destination);
-        
-    }
-    
-    public void setJobMapRoute(String pickupLoc, String dest){
-        
-//        String[][] addressArray;
-//
-//        addressCounter++;
-//
-//        //check if array has been made
-//        if (Locations.locations == null) {
-//            addressArray = Locations.locations;
-//        } else {
-//            addressArray = Locations.locations;
-//        }
-//
-//        //loop through numArray check for number match
-//        for (int i = 0; i < addressArray.length; ++i) {
-//            if (addressArray[i][5].contains(homeCustomerAddress.getText())) {
-//                homeCustomerAddressSearch.setText(addressArray[i][5]);
-//                System.out.print(addressArray[i][5]);
-//            }
-//        }
-//        
-//        String start = "53.34481274192986, -6.26495361328125";
-//        String end = "53.32349126597425, -6.3480377197265625";
-//        engine = mapaWebView.getEngine();
-//        engine.executeScript("initMap(\"" + start + "\", \" " + end + "\");");
-    }
+
   
 }
     

@@ -66,8 +66,17 @@ public class Jobs {
             // create a mysql database connection
             Connection jobConn = Utills.openDb();
 
-            String query1 = "SELECT * from jobs";
-
+            String query1 = "SELECT jobs.is_active, jobs.job_id, job_type.name, customers.customer_name, \n"
+                            + "drivers.driver_first_name, jobs.time_created, jobs.time_departed,\n"
+                            + "jobs.time_eta, jobs.message\n"
+                            + "FROM jobs\n"
+                            + "INNER JOIN job_type\n"
+                            + "ON jobs.job_type_id = job_type.id\n"
+                            + "INNER JOIN customers\n"
+                            + "ON jobs.customer_id = customers.customer_id\n"
+                            + "INNER JOIN drivers\n"
+                            + "ON jobs.driver_id = drivers.driver_id;";
+            System.out.println(query1);
             // create the java statement
             java.sql.Statement st = jobConn.createStatement();
 
@@ -76,36 +85,30 @@ public class Jobs {
 
             int numCounter;
             for(numCounter = 0; rs.next(); numCounter++);
-            jobsList = new String[numCounter][12];
+            jobsList = new String[numCounter][9];
             rs.beforeFirst();
             numCounter = 0;
 
             while (rs.next()) {
-                int id = rs.getInt(1);
-                short jobType = rs.getShort(2);
-                short custId = rs.getShort(3);
-                short driverId = rs.getShort(4);
-                short pickupLocId = rs.getShort(5);
-                short destId = rs.getShort(6);
-                String departed = rs.getString(7);
-                String eta = rs.getString(8);
-                byte isExpedited = rs.getByte(9);
-                String msg = rs.getString(10);
-                byte isActive = rs.getByte(11);
-                Time time_created = rs.getTime(12);
+                short isActive = rs.getShort(1);
+                short id = rs.getShort(2);
+                String jobType = rs.getString(3);
+                String custName = rs.getString(4);
+                String driverName = rs.getString(5);
+                Time timeCreated = rs.getTime(6);
+                Time timeDeparted = rs.getTime(7);
+                Time ETA = rs.getTime(8);
+                String msg = rs.getString(9);
+                
   
-                jobsList[numCounter][0] = String.valueOf(id);
-                jobsList[numCounter][1] = String.valueOf(jobType);
-                jobsList[numCounter][2] = String.valueOf(custId);
-                jobsList[numCounter][3] = String.valueOf(driverId);
-                jobsList[numCounter][4] = String.valueOf(pickupLocId);
-                jobsList[numCounter][5] = String.valueOf(destId);
-                jobsList[numCounter][6] = departed;
-                jobsList[numCounter][7] = eta;
-                jobsList[numCounter][8] = String.valueOf(isExpedited);
-                jobsList[numCounter][9] = msg;
-                jobsList[numCounter][10] = String.valueOf(isActive);
-                jobsList[numCounter][11] = String.valueOf(time_created);
+                jobsList[numCounter][0] = String.valueOf(isActive);
+                jobsList[numCounter][1] = String.valueOf(id);
+                jobsList[numCounter][2] = jobType;
+                jobsList[numCounter][3] = custName;
+                jobsList[numCounter][4] = driverName;
+                jobsList[numCounter][5] = String.valueOf(timeCreated);
+                jobsList[numCounter][6] = String.valueOf(timeDeparted);
+                jobsList[numCounter][7] = String.valueOf(ETA);
 
                 numCounter++;
   
@@ -120,6 +123,56 @@ public class Jobs {
         }
         return jobsList;
     }
+    
+    static public String[][] getJobLocations(int startLocId, int destLocId){
+        
+        String[][] jobLocations = null;
+        
+        try {
+
+            // create a mysql database connection
+            Connection jobGPSConn = Utills.openDb();
+
+            String query1 = "SELECT lat_long, loc_street from locations where location_id = "+startLocId+"\n" +
+                            "UNION\n" +
+                            "SELECT lat_long, loc_street from locations where location_id = "+destLocId+"";
+            System.out.println(query1);
+            // create the java statement
+            java.sql.Statement st = jobGPSConn.createStatement();
+
+            // execute the query, and get a java resultset
+            ResultSet rs = st.executeQuery(query1);
+
+            int numCounter;
+            for(numCounter = 0; rs.next(); numCounter++);
+            jobLocations = new String[numCounter][2];
+            rs.beforeFirst();
+            numCounter = 0;
+
+            //careful now, this array is like so [start.lat_lng][loc_street]
+                                               //[end.lat_lng][loc_street]
+            while (rs.next()) {
+                String latLng = rs.getString(1);
+                String locStreet = rs.getString(2);
+                
+                jobLocations[numCounter][0] = latLng;
+                jobLocations[numCounter][1] = locStreet;
+                
+                numCounter++;
+  
+            }
+            
+            jobGPSConn.close();
+
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return jobLocations; 
+    }
+    
        
 
 }
