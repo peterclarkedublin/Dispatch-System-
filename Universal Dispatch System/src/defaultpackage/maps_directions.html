@@ -63,8 +63,10 @@
         </div>
         <div id="map"></div>
         <script>
-            function initMap() {
+            function initMap(x,y) {
                
+               setDirStart(x);
+               setDirEnd(y);
                 
                 var directionsService = new google.maps.DirectionsService;
                 var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -79,12 +81,13 @@
                 };
                 document.getElementById('start').addEventListener('change', onChangeHandler);
                 document.getElementById('end').addEventListener('change', onChangeHandler);
+                
+                calculateAndDisplayRoute(directionsService, directionsDisplay);
             }
                  var start;
                  var end;
                  
-                 //setDirStart("53.34481274192986, -6.26495361328125");
-                 //setDirEnd("53.32349126597425, -6.3480377197265625");
+                 
                  function setDirStart(x){ 
                      start = x;
                  }
@@ -92,9 +95,7 @@
                      end = y  
                  }
                  
-                 function getDirs() {
-                    
-                };
+                 
                  
             function calculateAndDisplayRoute(directionsService, directionsDisplay) {
                 directionsService.route({

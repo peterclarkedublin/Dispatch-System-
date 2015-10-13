@@ -214,9 +214,9 @@ public class MainWindow implements Initializable {
         String start = "53.34481274192986, -6.26495361328125";
         String end = "53.32349126597425, -6.3480377197265625";
         engine = mapaWebView.getEngine();
-        engine.executeScript("setDirStart("+"\""+ start+"\"" + ");");
-        engine.executeScript("setDirEnd("+"\""+ end +"\""+ ");");
-        engine.executeScript("getDirs();");
+        //engine.executeScript("setDirStart("+"\""+ start+"\"" + ");");
+        //engine.executeScript("setDirEnd("+"\""+ end +"\""+ ");");
+        engine.executeScript("initMap(\"" + start + "\", \" " + end + "\");");
         //System.out.println("setDirCoords(" + start + "," + end + ");");
         
  
