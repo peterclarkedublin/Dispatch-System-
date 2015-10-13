@@ -221,15 +221,13 @@ public class MainWindow implements Initializable {
  
     }
     
-        @FXML
+    @FXML
     private void setDirCoords() {
         String start = "53.34481274192986, -6.26495361328125";
         String end = "53.32349126597425, -6.3480377197265625";
         engine = mapaWebView.getEngine();
-        //engine.executeScript("setDirStart("+"\""+ start+"\"" + ");");
-        //engine.executeScript("setDirEnd("+"\""+ end +"\""+ ");");
         engine.executeScript("initMap(\"" + start + "\", \" " + end + "\");");
-        //System.out.println("setDirCoords(" + start + "," + end + ");");
+
         
  
     }
@@ -520,12 +518,10 @@ public class MainWindow implements Initializable {
                 jobsTbl.getColumns().clear();
             }
         }
-        
-        
-        
+
         String[][] jobArray = Jobs.listJobs();
         String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Pickup Location", "Dest. ID",
-                            "Departed", "ETA", "Is Expedited?", "Message", "Is Active?"};
+                            "Departed", "ETA", "Is Expedited?", "Message", "Is Active?", "Time Created"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
 
@@ -551,6 +547,7 @@ public class MainWindow implements Initializable {
                     jobsTbl.getColumns().add(tc);
                 }
             }
+            //homeJobsList.setFixedCellSize(3);
             
         }
         
@@ -566,18 +563,40 @@ public class MainWindow implements Initializable {
     
     public void jobListController(){
         
-//        String tmp = "0";
-//        
-//        tmp = homeJobsList.getSelectionModel().getSelectedCells().get(4).toString();
-//        
-//        setJobMapRoute(tmp, tmp);
+        //String tmp = "0";
+        
+        String pickupLoc  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[4];
+        String destination  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[5];
+        
+        setJobMapRoute(pickupLoc, destination);
         
     }
     
-    public void setJobMapRoute(String start, String end){
+    public void setJobMapRoute(String pickupLoc, String dest){
         
-        System.out.println(start);
-        System.out.println(end);
+//        String[][] addressArray;
+//
+//        addressCounter++;
+//
+//        //check if array has been made
+//        if (Locations.locations == null) {
+//            addressArray = Locations.locations;
+//        } else {
+//            addressArray = Locations.locations;
+//        }
+//
+//        //loop through numArray check for number match
+//        for (int i = 0; i < addressArray.length; ++i) {
+//            if (addressArray[i][5].contains(homeCustomerAddress.getText())) {
+//                homeCustomerAddressSearch.setText(addressArray[i][5]);
+//                System.out.print(addressArray[i][5]);
+//            }
+//        }
+//        
+//        String start = "53.34481274192986, -6.26495361328125";
+//        String end = "53.32349126597425, -6.3480377197265625";
+//        engine = mapaWebView.getEngine();
+//        engine.executeScript("initMap(\"" + start + "\", \" " + end + "\");");
     }
   
 }

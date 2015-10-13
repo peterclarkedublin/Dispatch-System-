@@ -8,6 +8,7 @@ package defaultpackage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.Date;
 import javax.xml.datatype.DatatypeConstants;
 
@@ -33,7 +34,7 @@ public class Jobs {
             Connection conn = Utills.openDb();
 
             // Item table mysql insert statement
-            String query = " insert into jobs (customer_id, driver_id, pickup_loc_id, dest_id, is_expedited, message )"
+            String query = " insert into jobs (customer_id, driver_id, pickup_loc_id, dest_id, is_expedited, message)"
                     + " values (?, ?, ?, ?, ?, ?)";
 
             // Item table mysql insert preparedstatement
@@ -75,7 +76,7 @@ public class Jobs {
 
             int numCounter;
             for(numCounter = 0; rs.next(); numCounter++);
-            jobsList = new String[numCounter][11];
+            jobsList = new String[numCounter][12];
             rs.beforeFirst();
             numCounter = 0;
 
@@ -91,6 +92,7 @@ public class Jobs {
                 byte isExpedited = rs.getByte(9);
                 String msg = rs.getString(10);
                 byte isActive = rs.getByte(11);
+                Time time_created = rs.getTime(12);
   
                 jobsList[numCounter][0] = String.valueOf(id);
                 jobsList[numCounter][1] = String.valueOf(jobType);
@@ -103,6 +105,7 @@ public class Jobs {
                 jobsList[numCounter][8] = String.valueOf(isExpedited);
                 jobsList[numCounter][9] = msg;
                 jobsList[numCounter][10] = String.valueOf(isActive);
+                jobsList[numCounter][11] = String.valueOf(time_created);
 
                 numCounter++;
   
