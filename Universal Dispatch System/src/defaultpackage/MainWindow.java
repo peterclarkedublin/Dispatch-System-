@@ -24,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -41,6 +43,8 @@ import javafx.util.Callback;
 public class MainWindow implements Initializable {
 
     //home tab
+    @FXML
+    private Tab homeTab;
     @FXML
     private Button refreshDriversList;
     @FXML
@@ -63,6 +67,8 @@ public class MainWindow implements Initializable {
     private TextField homeCustomerNotes;
     @FXML
     private Label homeCustomerNotesLbl;
+    @FXML
+    private TableView homeJobsList;
     
     //settings tab
     @FXML
@@ -115,6 +121,8 @@ public class MainWindow implements Initializable {
 
     //jobs tab
     @FXML
+    private Tab jobsTab;
+    @FXML
     private TableView jobsTbl;
     @FXML
     private Button selectCustomer;
@@ -136,6 +144,10 @@ public class MainWindow implements Initializable {
     private Button saveJob;
     @FXML
     private Button refreshJobTbl;
+    @FXML
+    private Button pickupLoc;
+    @FXML
+    private TextField pickupLocTxtFld;
     
     //customers tab
     @FXML
@@ -173,7 +185,7 @@ public class MainWindow implements Initializable {
     double lng;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         fillComboBoxConductor();
         final URL urlGoogleMaps = getClass().getResource("maps_directions.html");
         engine = mapaWebView.getEngine();
@@ -493,18 +505,26 @@ public class MainWindow implements Initializable {
         }
         
         Jobs.addNewJob(Short.valueOf(selectCustomerField.getText()), Short.valueOf(selectDriverField.getText()), 
-                        Short.valueOf(selectDestinationField.getText()), isExpedited, driverMessage.getText());
+                        Short.valueOf(pickupLocTxtFld.getText()), Short.valueOf(selectDestinationField.getText()), isExpedited, driverMessage.getText());
         
         
     }
     
     private ObservableList<String[]> jobData;
     public void listJobs(){
+
+        if(homeTab.isSelected()){
+            homeJobsList.getColumns().clear();
+        }else{
+            if(jobsTab.isSelected()){
+                jobsTbl.getColumns().clear();
+            }
+        }
         
-        jobsTbl.getColumns().clear();
+        
         
         String[][] jobArray = Jobs.listJobs();
-        String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Dest. ID",
+        String[] colnames = {"ID" , "Job Type ID", "Customer ID", "Driver ID" , "Pickup Location", "Dest. ID",
                             "Departed", "ETA", "Is Expedited?", "Message", "Is Active?"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
@@ -524,19 +544,42 @@ public class MainWindow implements Initializable {
             });
                
             tc.setPrefWidth(90);
-            jobsTbl.getColumns().add(tc);
+            if (homeTab.isSelected()) {
+                homeJobsList.getColumns().add(tc);
+            } else {
+                if (jobsTab.isSelected()) {
+                    jobsTbl.getColumns().add(tc);
+                }
+            }
+            
         }
-
-        jobsTbl.setItems(custData);
+        
+        if(homeTab.isSelected()){
+            homeJobsList.setItems(custData);
+        }else{
+            if(jobsTab.isSelected()){
+                jobsTbl.setItems(custData);
+            }
+        }
+    
+    }
+    
+    public void jobListController(){
+        
+//        String tmp = "0";
+//        
+//        tmp = homeJobsList.getSelectionModel().getSelectedCells().get(4).toString();
+//        
+//        setJobMapRoute(tmp, tmp);
         
     }
-
     
-   
-
-    
-    
-    
+    public void setJobMapRoute(String start, String end){
+        
+        System.out.println(start);
+        System.out.println(end);
+    }
+  
 }
     
 
