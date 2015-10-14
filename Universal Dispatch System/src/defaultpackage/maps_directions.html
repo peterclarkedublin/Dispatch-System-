@@ -14,16 +14,15 @@
             }
             #floating-panel {
                 position: absolute;
-                top: 10px;
+                top: 0px;
                 left: 25%;
                 z-index: 5;
                 background-color: #fff;
-                padding: 5px;
-                border: 1px solid #999;
+                padding: px;
                 text-align: center;
                 font-family: 'Roboto','sans-serif';
                 line-height: 30px;
-                padding-left: 10px;
+                padding-left: 0px;
             }
 
         </style>
@@ -33,7 +32,7 @@
         <div id="map"></div>
         <script>
             function initMap(x,y) {
-               
+       
                setDirStart(x);
                setDirEnd(y);
                 
@@ -43,6 +42,9 @@
                     zoom: 10,
                     center: {lat: 53.34, lng: -6.34}
                 });
+                
+
+                
                 directionsDisplay.setMap(map);
 
                 var onChangeHandler = function () {
@@ -50,6 +52,8 @@
                 };
                 
                 calculateAndDisplayRoute(directionsService, directionsDisplay);
+                
+                
             }
                  var start;
                  var end;
@@ -60,6 +64,10 @@
                  function setDirEnd(y){ 
                      end = y  
                  }
+                 function addMarker(){
+                     
+                 }
+
                        
             function calculateAndDisplayRoute(directionsService, directionsDisplay) {
                 directionsService.route({
@@ -76,7 +84,7 @@
             }
 
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs&signed_in=true&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs&signed_in=false&callback=initMap"
         async defer></script>
     </body>
 </html>

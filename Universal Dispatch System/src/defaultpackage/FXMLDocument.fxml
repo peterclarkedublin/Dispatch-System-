@@ -23,7 +23,7 @@
                         <Pane layoutX="333.0" layoutY="33.0" prefHeight="429.0" prefWidth="653.0" />
                         <AnchorPane layoutY="571.0" maxWidth="1800.0" prefHeight="200.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <TableView fx:id="homeJobsList" layoutX="25.0" maxWidth="-Infinity" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="homeJobsList" layoutX="25.0" maxWidth="-Infinity" onMouseClicked="#updateDirsOnMap" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  </TableView>
                            </children>
                         </AnchorPane>
@@ -58,7 +58,7 @@
                                                       <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="110.0" layoutY="227.0" />
                                                       <TextField fx:id="homeCustomerNotes" layoutX="110.0" layoutY="277.0" />
                                                       <Label fx:id="homeCustomerNotesLbl" layoutX="15.0" layoutY="281.0" text="Customer Notes" />
-                                                      <Button layoutX="118.0" layoutY="19.0" mnemonicParsing="false" onAction="#setDirCoords" text="#TEST#" />
+                                                      <Button layoutX="118.0" layoutY="19.0" mnemonicParsing="false" text="#TEST#" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
@@ -79,7 +79,7 @@
                                           <Image url="@../images/google-traffic-map.png" />
                                        </image>
                                     </ImageView>
-                                    <WebView fx:id="mapaWebView" layoutX="133.0" layoutY="122.0" prefHeight="567.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <WebView fx:id="mapaWebView" cache="true" layoutX="133.0" layoutY="122.0" prefHeight="567.0" prefWidth="705.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </items>

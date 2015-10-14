@@ -229,14 +229,12 @@ public class MainWindow implements Initializable {
     }
     
     @FXML
-    private void setDirCoords() {
-        String start = "53.34481274192986, -6.26495361328125";
-        String end = "53.32349126597425, -6.3480377197265625";
+    private void setDirCoords(String startLoc, String destLoc) {
+//        String start = "53.34481274192986, -6.26495361328125";
+//        String end = "53.32349126597425, -6.3480377197265625";
         engine = mapaWebView.getEngine();
-        engine.executeScript("initMap(\"" + start + "\", \" " + end + "\");");
+        engine.executeScript("initMap(\"" + startLoc + "\", \" " + destLoc + "\");");
 
-        
- 
     }
     
     @FXML
@@ -269,9 +267,7 @@ public class MainWindow implements Initializable {
         ObservableList<String[]> cols = FXCollections.observableArrayList();
         cols.addAll(colnames);
         fleetData.addAll(Arrays.asList(driverArray));
-     
 
-        
         for (int i = 0; i < driverArray[0].length; i++) {
             
             TableColumn tc = new TableColumn(colnames[i]);
@@ -313,8 +309,7 @@ public class MainWindow implements Initializable {
 
         cols.addAll(colnames);
         data.addAll(Arrays.asList(fleetArray));
-        //data.remove(0);//remove titles from data
-                
+    
         for (int i = 0; i < fleetArray[0].length; i++) {
             TableColumn tc = new TableColumn(colnames[i]);
             final int colNo = i;
@@ -350,7 +345,6 @@ public class MainWindow implements Initializable {
 
         cols.addAll(colnames);
         custData.addAll(Arrays.asList(fleetArray));
-        //data.remove(0);//remove titles from data
                 
         for (int i = 0; i < fleetArray[0].length; i++) {
             TableColumn tc = new TableColumn(colnames[i]);
@@ -527,13 +521,13 @@ public class MainWindow implements Initializable {
         }
 
         String[][] jobArray = Jobs.listJobs();
-        String[] colnames = {"Active" , "ID", "Type", "Customer" , "Driver", "Created",
-                            "Departed", "ETA", "Message"};
+        String[] colnames = {"Active" , "ID", "Type", "Customer" , "From", "To", "Driver", "Created",
+                            "Departed", "ETA", "Message", "Start", "End"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
         cols.addAll(colnames);
         custData.addAll(Arrays.asList(jobArray));
-        //data.remove(0);//remove titles from data
+        
         for (int i = 0; i < jobArray[0].length; i++) {
             TableColumn tc = new TableColumn(colnames[i]);
  
@@ -546,7 +540,7 @@ public class MainWindow implements Initializable {
                 }
             });
                
-            tc.setPrefWidth(75);
+            tc.setPrefWidth(80);
             
             if (homeTab.isSelected()) {
                 homeJobsList.getColumns().add(tc);
@@ -564,12 +558,17 @@ public class MainWindow implements Initializable {
                 jobsTbl.setItems(custData);
             }
         }
-       String[][] str = Jobs.getJobLocations(1, 7);
-            System.out.print(str[0][1]);
-    
     }
     
-
+    @FXML
+    public void updateDirsOnMap(){
+        
+        //grabs the startLoc and endLoc from the homJobsList and passes em to updateMap method
+        String startLoc = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[11];
+        String destLoc  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[12];
+        
+        setDirCoords(startLoc, destLoc);
+    }
   
 }
     
