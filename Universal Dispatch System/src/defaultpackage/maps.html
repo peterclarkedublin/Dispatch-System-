@@ -36,9 +36,9 @@
                 autoPan : true
 
             });
-            var nombreconductor = "Victor"
+            var markerTitle= ""
             var infobulle = new google.maps.InfoWindow({
-                content : nombreconductor
+                content : markerTitle
             });
             google.maps.event.addListener(marker, 'mouseover', function() {
                 infobulle.open(map, marker);
@@ -55,6 +55,7 @@
 
             // Function for adding a marker to the page.
             function addMarker(x,y) {
+                markerTitle = markerTitle
             var latLng2 = new google.maps.LatLng(x, y);
             marker.setPosition(latLng2);
             }

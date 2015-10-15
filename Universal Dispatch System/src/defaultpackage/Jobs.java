@@ -75,14 +75,16 @@ public class Jobs {
 
             String query1 = "SELECT jobs.is_active, jobs.job_id, job_type.name, customers.customer_name, \n"
                             + "drivers.driver_first_name, jobs.time_created, jobs.time_departed,\n"
-                            + "jobs.time_eta, jobs.message, jobs.pickup_loc_id, jobs.dest_id, jobs.customer_id\n"
+                            + "jobs.time_eta, jobs.message, jobs.pickup_loc_id, jobs.dest_id, jobs.customer_id, vehicle.current_lat_long\n"
                             + "FROM jobs\n"
                             + "INNER JOIN job_type\n"
                             + "ON jobs.job_type_id = job_type.id\n"
                             + "INNER JOIN customers\n"
                             + "ON jobs.customer_id = customers.customer_id\n"
                             + "INNER JOIN drivers\n"
-                            + "ON jobs.driver_id = drivers.driver_id;";
+                            + "ON jobs.driver_id = drivers.driver_id\n"
+                            + "INNER JOIN vehicle\n"
+                            + "ON drivers.vehicle_id = vehicle.vehicle_id";
  
             // create the java statement
             java.sql.Statement st = jobConn.createStatement();//main loop
@@ -94,7 +96,7 @@ public class Jobs {
 
             int numCounter;
             for(numCounter = 0; rs.next(); numCounter++);
-            jobsList = new String[numCounter][13];
+            jobsList = new String[numCounter][14];
             rs.beforeFirst();
             numCounter = 0;
 
@@ -111,6 +113,7 @@ public class Jobs {
                 String pickupLocId = rs.getString(10);
                 String destLocId = rs.getString(11);
                 String customerId = rs.getString(12);
+                String vehCurrLatLng = rs.getString(13);
  
                 //do inner latlng db calls which are added to end of jobList array
                 String queryStartLoc = "SELECT locations.lat_long, locations.loc_street \n" +
@@ -151,6 +154,7 @@ public class Jobs {
                 jobsList[numCounter][10] = String.valueOf(msg);
                 jobsList[numCounter][11] = startLoc;
                 jobsList[numCounter][12] = destLoc;
+                jobsList[numCounter][13] = vehCurrLatLng;
 
                 numCounter++;
   

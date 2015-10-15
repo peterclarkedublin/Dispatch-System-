@@ -25,14 +25,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -73,6 +71,14 @@ public class MainWindow implements Initializable {
     private Label homeCustomerNotesLbl;
     @FXML
     private TableView homeJobsList;
+    
+    //home tab / driver locations map
+    @FXML
+    private TableView activeJobsAndDrivers;
+    @FXML
+    private Tab activeJobsTab;
+    @FXML
+    private Tab jobsQue;
 
     
     //settings tab
@@ -91,6 +97,8 @@ public class MainWindow implements Initializable {
     private Button addNewDriver;
 
     //drivers tab
+    @FXML
+    private Tab driversTab;
     @FXML
     private TableView driversTabTbl;
     @FXML
@@ -188,13 +196,30 @@ public class MainWindow implements Initializable {
     //AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs
     double lat;
     double lng;
+    
+    //for switching map between tabs
+    private String mapviewFile = "maps_directions.html";
+    
+    @FXML 
+    private void setHomeMapView(){
+    this.mapviewFile = "maps_directions.html";
+    
+    }
+    
+    @FXML 
+    private void setDriverMapView(){
+    //this.mapviewFile = "drivers_mapa.html";
+    engine.reload();
+    listAvtiveJobs();
+    }
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        listJobs();
+        listJobsQue();
         
         fillComboBoxConductor();
-        final URL urlGoogleMaps = getClass().getResource("maps_directions.html");
+        final URL urlGoogleMaps = getClass().getResource(mapviewFile);
         engine = mapaWebView.getEngine();
         lat = 53.349064;
         lng = -6.266736;
@@ -218,12 +243,16 @@ public class MainWindow implements Initializable {
     //code to fill ComboBox
     }
 
+    private String driverMarkerGPS;
+    private String driverMarkerName;//the below method doesnt like constructors. . . 
     @FXML
-    private void changeConductor() {
-        lat = lat + 5;
-        lng = lng + 5;
+    public void addMapMarker() {
+        String lat = "53.311128";
+        String lng =  "-6.999673";
         engine = mapaWebView.getEngine();
-        engine.executeScript("addMarker(" + lat + "," + lng + ");");
+        //engine.executeScript("addMarker(" +lat+"," + lng + ");");
+        //engine.executeScript("addMarker(" + driverMarkerGPS +");");
+        engine.executeScript("addMarker();");
         System.out.println("added marker");
  
     }
@@ -237,8 +266,9 @@ public class MainWindow implements Initializable {
 
     }
     
+    
     @FXML
-    private void showAllConductores() {
+    public void showAllConductores() {
         for (int i = 0; i < 6; i++) {
             lat = lat + 5;
             lng = lng + 5;
@@ -256,17 +286,17 @@ public class MainWindow implements Initializable {
     }
     
     //class list for refresh button calls
-    private ObservableList<String[]> fleetData;
+    private ObservableList<String[]> driverData;
     public void listDrivers() {
         
-        driversTabTbl.getColumns().clear();
-        
+         driversTabTbl.getColumns().clear();  
+
         String[][] driverArray = Drivers.listDrivers();
         String[] colnames = {"ID", "First Name", "Last Name", "Vehicle ID", "Plate Number", "Job ID"};
-        fleetData = FXCollections.observableArrayList();
+        driverData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
         cols.addAll(colnames);
-        fleetData.addAll(Arrays.asList(driverArray));
+        driverData.addAll(Arrays.asList(driverArray));
 
         for (int i = 0; i < driverArray[0].length; i++) {
             
@@ -284,7 +314,7 @@ public class MainWindow implements Initializable {
             driversTabTbl.getColumns().add(tc);
         }
 
-        driversTabTbl.setItems(fleetData);
+        driversTabTbl.setItems(driverData);
         
     }
     
@@ -510,7 +540,7 @@ public class MainWindow implements Initializable {
     }
     
     private ObservableList<String[]> jobData;
-    public void listJobs(){
+    public void listJobsQue(){
 
         if(homeTab.isSelected()){
             homeJobsList.getColumns().clear();
@@ -522,7 +552,7 @@ public class MainWindow implements Initializable {
 
         String[][] jobArray = Jobs.listJobs();
         String[] colnames = {"Active" , "ID", "Type", "Customer" , "From", "To", "Driver", "Created",
-                            "Departed", "ETA", "Message", "Start", "End"};
+                            "Departed", "ETA", "Message", "Start", "End", "Vehicle Current GPS"};
         ObservableList<String[]> custData = FXCollections.observableArrayList();
         ObservableList<String[]> cols = FXCollections.observableArrayList();
         cols.addAll(colnames);
@@ -548,6 +578,7 @@ public class MainWindow implements Initializable {
                 if (jobsTab.isSelected()) {
                     jobsTbl.getColumns().add(tc);
                 }
+                
             };
         }
         
@@ -558,6 +589,45 @@ public class MainWindow implements Initializable {
                 jobsTbl.setItems(custData);
             }
         }
+        homeJobsList.getColumns().remove(0);
+        homeJobsList.getColumns().remove(5);
+        homeJobsList.getColumns().remove(6);///not part of active list
+        homeJobsList.getColumns().remove(10);
+        
+    }
+    
+    @FXML
+    public void listAvtiveJobs(){
+
+        activeJobsAndDrivers.getColumns().clear();
+
+        String[][] jobArray = Jobs.listJobs();
+        String[] colnames = {"Active" , "ID", "Type", "Customer" , "From", "To", "Driver", "Created",
+                            "Departed", "ETA", "Message", "Start", "End", "Vehicle Current GPS"};
+        ObservableList<String[]> custData = FXCollections.observableArrayList();
+        ObservableList<String[]> cols = FXCollections.observableArrayList();
+        cols.addAll(colnames);
+        custData.addAll(Arrays.asList(jobArray));
+        
+        for (int i = 0; i < jobArray[0].length; i++) {
+            TableColumn tc = new TableColumn(colnames[i]);
+ 
+            final int colNo = i;
+            tc.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
+                    return new SimpleStringProperty((p.getValue()[colNo]));
+                    
+                }
+            });
+               
+            tc.setPrefWidth(80);
+            activeJobsAndDrivers.getColumns().add(tc);
+
+        }
+        
+        activeJobsAndDrivers.setItems(custData);
+        activeJobsAndDrivers.getColumns().remove(0);
     }
     
     @FXML
@@ -568,6 +638,16 @@ public class MainWindow implements Initializable {
         String destLoc  = ((String[])homeJobsList.getSelectionModel().getSelectedItem())[12];
         
         setDirCoords(startLoc, destLoc);
+    }
+    
+    @FXML
+    public void putDriverMarkerMap(){
+        
+        //grabs the startLoc and endLoc from the homJobsList and passes em to updateMap method
+        driverMarkerGPS = ((String[])activeJobsAndDrivers.getSelectionModel().getSelectedItem())[13];
+        driverMarkerName = ((String[])activeJobsAndDrivers.getSelectionModel().getSelectedItem())[8];
+        System.out.print(driverMarkerGPS);
+        addMapMarker();
     }
   
 }

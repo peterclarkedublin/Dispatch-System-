@@ -23,53 +23,56 @@
                         <Pane layoutX="333.0" layoutY="33.0" prefHeight="429.0" prefWidth="653.0" />
                         <AnchorPane layoutY="571.0" maxWidth="1800.0" prefHeight="200.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <TableView fx:id="homeJobsList" layoutX="25.0" maxWidth="-Infinity" onMouseClicked="#updateDirsOnMap" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TabPane prefHeight="200.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <tabs>
+                                  <Tab fx:id="jobsQue" text="Jobs Que">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="homeJobsList" maxWidth="-Infinity" onMouseClicked="#updateDirsOnMap" prefHeight="200.0" prefWidth="804.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab fx:id="activeJobsTab" onSelectionChanged="#setDriverMapView" text="Active Jobs Drivers Map">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TableView fx:id="activeJobsAndDrivers" layoutX="14.0" layoutY="-14.0" onMouseClicked="#putDriverMarkerMap" prefHeight="171.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                </tabs>
+                              </TabPane>
                            </children>
                         </AnchorPane>
                         <SplitPane dividerPositions="0.2905811623246493" layoutY="1.0" prefHeight="569.0" prefWidth="1000.0" AnchorPane.bottomAnchor="201.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <TabPane layoutX="6.0" layoutY="7.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="567.0" prefWidth="294.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <tabs>
-                                        <Tab text="Assign Job">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                                   <children>
-                                                      <Label layoutX="29.0" layoutY="56.0" text="Phone" />
-                                                      <Label layoutX="29.0" layoutY="127.0" text="Name" />
-                                                      <Label layoutX="29.0" layoutY="206.0" text="Address" />
-                                                      <Separator layoutY="315.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0" />
-                                                      <Label layoutX="15.0" layoutY="14.0" text="Customer Search" />
-                                                      <Label layoutX="22.0" layoutY="328.0" text="Previous Destination Locations" />
-                                                      <TextField layoutX="116.0" layoutY="363.0" />
-                                                      <Label layoutX="36.0" layoutY="367.0" text="Address 1" />
-                                                      <TextField layoutX="116.0" layoutY="405.0" />
-                                                      <Label layoutX="36.0" layoutY="409.0" text="Address 2" />
-                                                      <Label layoutX="36.0" layoutY="455.0" text="Address 3" />
-                                                      <TextField layoutX="116.0" layoutY="451.0" />
-                                                      <Button layoutX="206.0" layoutY="491.0" mnemonicParsing="false" text="Que Job" />
-                                                      <TextField fx:id="homeCustomerPhone" layoutX="110.0" layoutY="52.0" onKeyTyped="#homeSearchCustomer" />
-                                                      <TextField fx:id="homeCustomerName" layoutX="109.0" layoutY="123.0" />
-                                                      <TextField fx:id="homeCustomerAddress" layoutX="110.0" layoutY="202.0" />
-                                                      <TextField fx:id="homeCustomerPhoneSearch" editable="false" layoutX="110.0" layoutY="77.0" />
-                                                      <TextField fx:id="homeCustomerNameSearch" editable="false" layoutX="109.0" layoutY="148.0" />
-                                                      <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="110.0" layoutY="227.0" />
-                                                      <TextField fx:id="homeCustomerNotes" layoutX="110.0" layoutY="277.0" />
-                                                      <Label fx:id="homeCustomerNotesLbl" layoutX="15.0" layoutY="281.0" text="Customer Notes" />
-                                                      <Button layoutX="118.0" layoutY="19.0" mnemonicParsing="false" text="#TEST#" />
-                                                   </children>
-                                                </AnchorPane>
-                                          </content>
-                                        </Tab>
-                                        <Tab text="Driver Locations Map">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                          </content>
-                                        </Tab>
-                                      </tabs>
-                                    </TabPane>
+                                    <Label layoutX="18.0" layoutY="47.0" text="Phone" />
+                                    <Label layoutX="19.0" layoutY="118.0" text="Name" />
+                                    <Label layoutX="14.0" layoutY="190.0" text="Address" />
+                                    <Separator layoutY="266.0" prefHeight="3.0" prefWidth="294.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="266.0" />
+                                    <Label layoutX="14.0" layoutY="14.0" text="Job Assignment" />
+                                    <Label layoutX="9.0" layoutY="279.0" text="Previous Destination Locations" />
+                                    <TextField layoutX="109.0" layoutY="373.0" />
+                                    <Label layoutX="22.0" layoutY="319.0" text="Address 1" />
+                                    <TextField layoutX="109.0" layoutY="342.0" />
+                                    <Label layoutX="22.0" layoutY="346.0" text="Address 2" />
+                                    <Label layoutX="22.0" layoutY="377.0" text="Address 3" />
+                                    <TextField layoutX="108.0" layoutY="311.0" />
+                                    <Button layoutX="207.0" layoutY="528.0" mnemonicParsing="false" onAction="#addMapMarker" text="Que Job" />
+                                    <TextField fx:id="homeCustomerPhone" layoutX="103.0" layoutY="43.0" onKeyTyped="#homeSearchCustomer" />
+                                    <TextField fx:id="homeCustomerName" layoutX="105.0" layoutY="114.0" />
+                                    <TextField fx:id="homeCustomerAddress" layoutX="105.0" layoutY="186.0" />
+                                    <TextField fx:id="homeCustomerPhoneSearch" editable="false" layoutX="103.0" layoutY="72.0" />
+                                    <TextField fx:id="homeCustomerNameSearch" editable="false" layoutX="105.0" layoutY="144.0" />
+                                    <TextField fx:id="homeCustomerAddressSearch" editable="false" layoutX="105.0" layoutY="216.0" />
+                                    <TextField fx:id="homeCustomerNotes" layoutX="16.0" layoutY="448.0" prefHeight="62.0" prefWidth="244.0" />
+                                    <Label fx:id="homeCustomerNotesLbl" layoutX="13.0" layoutY="423.0" text="Customer Notes" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="560.0" prefWidth="470.0">
@@ -87,7 +90,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab fx:id="jobsTab" onSelectionChanged="#listJobs" text="Jobs">
+          <Tab fx:id="jobsTab" onSelectionChanged="#listAvtiveJobs" text="Jobs">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -112,13 +115,13 @@
                         </Text>
                         <CheckBox fx:id="expedite" layoutX="28.0" layoutY="470.0" mnemonicParsing="false" text="Expedite this Job" />
                         <Button fx:id="saveJob" layoutX="426.0" layoutY="732.0" mnemonicParsing="false" onAction="#addNewJob" prefHeight="25.0" prefWidth="67.0" text="Save" />
-                        <Button fx:id="refreshJobTbl" layoutX="930.0" layoutY="426.0" mnemonicParsing="false" onAction="#listJobs" text="Refresh" />
+                        <Button fx:id="refreshJobTbl" layoutX="930.0" layoutY="426.0" mnemonicParsing="false" onAction="#listAvtiveJobs" text="Refresh" />
                         <TextField fx:id="pickupLocTxtFld" layoutX="579.0" layoutY="503.0" prefHeight="25.0" prefWidth="113.0" />
                         <Button fx:id="pickupLoc" layoutX="479.0" layoutY="503.0" mnemonicParsing="false" text="Pickup Location" />
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab onSelectionChanged="#listDrivers" text="Drivers">
+            <Tab fx:id="driversTab" onSelectionChanged="#listDrivers" text="Drivers">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

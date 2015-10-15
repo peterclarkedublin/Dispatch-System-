@@ -26,6 +26,7 @@
             }
 
         </style>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
     </head>
     <body>
         
@@ -43,7 +44,7 @@
                     center: {lat: 53.34, lng: -6.34}
                 });
                 
-
+                    
                 
                 directionsDisplay.setMap(map);
 
@@ -65,8 +66,14 @@
                      end = y  
                  }
                  function addMarker(){
-                     
+                var latLng2 = new google.maps.LatLng(53.34481274192986,-6.26495361328125);
+                var marker = new google.maps.Marker({
+                    
+                position: latLng2,
+
+                 });
                  }
+                 
 
                        
             function calculateAndDisplayRoute(directionsService, directionsDisplay) {
