@@ -86,6 +86,8 @@
 
                     });
                     
+                
+                    
                 google.maps.event.addListener(marker, 'mouseover', function() {
                 infobulle.open(map, marker);
                 });
@@ -96,8 +98,6 @@
                   var latLng2 = new google.maps.LatLng(x,y);
                   marker.setPosition(latLng2);
             }
-                
-                 
 
                        
             function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -112,6 +112,17 @@
                         window.alert('Directions request failed due to ' + status);
                     }
                 });
+            }
+            
+            function addPickupMarker(x,y){
+                var latLng = new google.maps.LatLng(x, y);
+                map.setCenter(latLng);
+                  var marker = new google.maps.Marker({
+                   position: latLng,
+                    map: map,
+                    title: 'This Job\'s Pickup Location - Please Select a Destination and Que the Job'  
+                    });
+                    
             }
 
         </script>
