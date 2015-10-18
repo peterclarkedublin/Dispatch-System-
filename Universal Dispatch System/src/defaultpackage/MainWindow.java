@@ -250,9 +250,11 @@ public class MainWindow implements Initializable {
         String lat = "53.311128";
         String lng =  "-6.999673";
         engine = mapaWebView.getEngine();
-        //engine.executeScript("addMarker(" +lat+"," + lng + ");");
+        engine.executeScript("addMarker("+driverMarkerGPS+"," + "\'" + driverMarkerName + "\'"+");");
+        //engine.executeScript("addMarker("+driverMarkerGPS+"," + "\'" + driverMarkerName + "\'"+");");
+        //engine.executeScript("addMarker(" + driverMarkerGPS + ","+ "\" "+ driverMarkerName + "\");");
         //engine.executeScript("addMarker(" + driverMarkerGPS +");");
-        engine.executeScript("addMarker();");
+        //engine.executeScript("addMarker();");
         System.out.println("added marker");
  
     }
@@ -645,9 +647,10 @@ public class MainWindow implements Initializable {
         
         //grabs the startLoc and endLoc from the homJobsList and passes em to updateMap method
         driverMarkerGPS = ((String[])activeJobsAndDrivers.getSelectionModel().getSelectedItem())[13];
-        driverMarkerName = ((String[])activeJobsAndDrivers.getSelectionModel().getSelectedItem())[8];
-        System.out.print(driverMarkerGPS);
+        driverMarkerName = ((String[])activeJobsAndDrivers.getSelectionModel().getSelectedItem())[6];
+       
         addMapMarker();
+       
     }
   
 }
