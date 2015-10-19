@@ -33,6 +33,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
@@ -74,7 +75,7 @@ public class MainWindow implements Initializable {
     @FXML
     private TableView homeJobsList;
     @FXML
-    private WebView addressSearch;
+    private WebView pickupAddrSearchWv;
     @FXML
     private WebView testWebView;
     @FXML
@@ -83,6 +84,13 @@ public class MainWindow implements Initializable {
     private Button confirmPickupLoc;
     @FXML
     private Button confirmDestLoc;
+    @FXML
+    private WebView destAddSearchWv;
+    @FXML 
+    private Pane pickupAddr;
+    @FXML 
+    private Pane destAddr;
+    
     
     //home tab / driver locations map
     @FXML
@@ -202,9 +210,10 @@ public class MainWindow implements Initializable {
     ComboBox<String> conductorComboBox;
 
     @FXML
-    WebView mapaWebView;
+    WebView mainMapWebView;
 
-    WebEngine engine;
+    WebEngine engine1;
+    WebEngine engine2;
     //AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs
     double lat;
     double lng;
@@ -221,69 +230,86 @@ public class MainWindow implements Initializable {
     @FXML 
     private void setDriverMapView(){
     //this.mapviewFile = "drivers_mapa.html";
-    engine.reload();
+    engine1.reload();
     listAvtiveJobs();
-    }
     
-    
-    ///TESTING
-        @FXML
-    private void testingWebView() {
-   
-        final URL urlGoogleMaps = getClass().getResource("geocoder.html");
-        engine = testWebView.getEngine();
-
-        engine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
-                    public void changed(ObservableValue ov, State oldState, State newState) {
-                        if (newState == Worker.State.SUCCEEDED) {
-                               engine.executeScript("getLatLng(" + "\'" + "Mexico City, Mexico" + "\'"+");");
-                         
-                            
-                            
-                              
-                        }
-                    }
-                });
-
-        engine.setJavaScriptEnabled(true);
-        engine.load(urlGoogleMaps.toExternalForm());
-        
     }
     
     @FXML
     private void getLatLngBtn(){
-        engine = testWebView.getEngine();
-         System.out.println(engine.executeScript("getLat();"));
-         System.out.println(engine.executeScript("getLng();"));
+        engine1 = mainMapWebView.getEngine();
+         System.out.println(engine1.executeScript("getLat();").toString());
+         System.out.println(engine1.executeScript("getLng();").toString());
     }
     
     
+    @FXML//requests focus on click
+    private void addrPaneController(){
+        if(pickupAddrSearchWv.isFocused()){
+            destAddSearchWv.setVisible(false);
+        }
+        
+    }
+       @FXML//requests focus on click
+    private void addrPaneController1(){
+        if(pickupAddrSearchWv.isFocused()){
+            destAddSearchWv.setVisible(false);
+        }else{
+            if(destAddSearchWv.isFocused()){
+                pickupAddrSearchWv.setVisible(false);
+            }
+        }
+        
+    }
+    
+    //load the home screen pickup address search box
     @FXML
-    private void loadAddressSearch() {
-   
-        final URL urlGoogleMaps = getClass().getResource("autoAddress.html");
-        engine = addressSearch.getEngine();
+    private void loadPickupAddressSearch() {
+        
+        final URL urlGoogleMaps = getClass().getResource("pickupAutoAddress.html");
+        engine1 = pickupAddrSearchWv.getEngine();
 
-        engine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+        engine1.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
                     public void changed(ObservableValue ov, State oldState, State newState) {
                         if (newState == Worker.State.SUCCEEDED) {
-                              // System.out.println(engine.executeScript("test();").toString());
+                              // System.out.println(engine1.executeScript("test();").toString());
                         }
                     }
                 });
 
-        engine.setJavaScriptEnabled(true);
-        engine.load(urlGoogleMaps.toExternalForm());
+        engine1.setJavaScriptEnabled(true);
+        engine1.load(urlGoogleMaps.toExternalForm());
         
     }
+    
+    //load the homescreen destination address search box
+    @FXML
+    private void loadDestAddressSearch() {
+        
+        final URL urlGoogleMaps = getClass().getResource("destAutoAddress.html");
+        engine2 = destAddSearchWv.getEngine();
+
+        engine2.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+                    public void changed(ObservableValue ov, State oldState, State newState) {
+                        if (newState == Worker.State.SUCCEEDED) {
+                              // System.out.println(engine1.executeScript("test();").toString());
+                        }
+                    }
+                });
+
+        engine2.setJavaScriptEnabled(true);
+        engine2.load(urlGoogleMaps.toExternalForm());
+        
+    }
+    
     
     @FXML
     private void addPickupMarker(){
         
         String lat = "53.311128";
         String lng =  "-6.999673";
-        engine = mapaWebView.getEngine();
-        engine.executeScript("addPickupMarker("+lat+"," + "\'" + lng + "\'"+");");
+//        engine1 = mainMapWebView.getEngine();
+//        engine1.executeScript("addPickupMarker("+lat+"," + "\'" + lng + "\'"+");");
         
         getStreet();
         
@@ -291,27 +317,31 @@ public class MainWindow implements Initializable {
     
     @FXML
     private void getStreet(){
-        engine = addressSearch.getEngine();
-        System.out.println(engine.executeScript("getStreet();").toString());
-        
-        
-        
+        engine1 = pickupAddrSearchWv.getEngine();
+        String address = engine1.executeScript("getStreet();").toString();
+        System.out.println(address);
+        callGeoSvs(address);
+    
     }
     
+    //Main Home Map
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        loadAddressSearch();
+        loadPickupAddressSearch();
+        loadDestAddressSearch();
         listJobsQue();
         
         fillComboBoxConductor();
         final URL urlGoogleMaps = getClass().getResource(mapviewFile);
-        engine = mapaWebView.getEngine();
-        lat = 53.349064;
-        lng = -6.266736;
-        engine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+        engine1 = mainMapWebView.getEngine();
+//        lat = 53.349064;
+//        lng = -6.266736;
+        engine1.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
                     public void changed(ObservableValue ov, State oldState, State newState) {
                         if (newState == Worker.State.SUCCEEDED) {
-//                            engine.executeScript(""
+                            //engine.executeScript("setLatLng(" + "\'" + addressText + "\'"+");");
+//                            engine1.executeScript(""
 //                                    + "window.lat = " + lat + ";"
 //                                    + "window.lon = " + lng + ";"
 //                                    + "document.goToLocation(window.lat, window.lon);"
@@ -320,8 +350,32 @@ public class MainWindow implements Initializable {
                     }
                 });
 
-        engine.setJavaScriptEnabled(true);
-        engine.load(urlGoogleMaps.toExternalForm());
+        engine1.setJavaScriptEnabled(true);
+        engine1.load(urlGoogleMaps.toExternalForm());
+    }
+    
+    //call geoservice
+        public void callGeoSvs(String address) {
+
+        final URL urlGoogleMaps = getClass().getResource(mapviewFile);
+        engine1 = mainMapWebView.getEngine();
+
+        engine1.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+                    public void changed(ObservableValue ov, State oldState, State newState) {
+                        if (newState == Worker.State.SUCCEEDED) {
+                            engine1.executeScript("setLatLng(" + "\'" + address + "\'"+");");
+                            System.out.println(engine1.executeScript("getLat();"));
+//                            engine1.executeScript(""
+//                                    + "window.lat = " + lat + ";"
+//                                    + "window.lon = " + lng + ";"
+//                                    + "document.goToLocation(window.lat, window.lon);"
+//                            );
+                        }
+                    }
+                });
+
+        engine1.setJavaScriptEnabled(true);
+        engine1.load(urlGoogleMaps.toExternalForm());
     }
 
     private void fillComboBoxConductor() {
@@ -334,8 +388,8 @@ public class MainWindow implements Initializable {
     public void addMapMarker() {
         String lat = "53.311128";
         String lng =  "-6.999673";
-        engine = mapaWebView.getEngine();
-        engine.executeScript("addMarker("+driverMarkerGPS+"," + "\'" + driverMarkerName + "\'"+");");
+        engine1 = mainMapWebView.getEngine();
+        engine1.executeScript("addMarker("+driverMarkerGPS+"," + "\'" + driverMarkerName + "\'"+");");
         //engine.executeScript("addMarker("+driverMarkerGPS+"," + "\'" + driverMarkerName + "\'"+");");
         //engine.executeScript("addMarker(" + driverMarkerGPS + ","+ "\" "+ driverMarkerName + "\");");
         //engine.executeScript("addMarker(" + driverMarkerGPS +");");
@@ -349,8 +403,8 @@ public class MainWindow implements Initializable {
     private void setDirCoords(String startLoc, String destLoc) {
 //        String start = "53.34481274192986, -6.26495361328125";
 //        String end = "53.32349126597425, -6.3480377197265625";
-        engine = mapaWebView.getEngine();
-        engine.executeScript("initMap(\"" + startLoc + "\", \" " + destLoc + "\");");
+        engine1 = mainMapWebView.getEngine();
+        engine1.executeScript("initMap(\"" + startLoc + "\", \" " + destLoc + "\");");
 
     }
     
@@ -360,10 +414,10 @@ public class MainWindow implements Initializable {
         for (int i = 0; i < 6; i++) {
             lat = lat + 5;
             lng = lng + 5;
-            engine.executeScript("arrayConductores.push({x:5, y:3});");
+            engine1.executeScript("arrayConductores.push({x:5, y:3});");
 
         }
-        engine.executeScript("addAllMarkers();");
+        engine1.executeScript("addAllMarkers();");
 
     }
 

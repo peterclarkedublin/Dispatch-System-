@@ -124,7 +124,47 @@
                     });
                     
             }
+            
+            
+        var geocoder = new google.maps.Geocoder();
+        var inAddress = "";
+        var lat = "xxx";
+        var lng = "xxx";
+            
+       
+    function setLatLng(x){
+    inAddress = x;
+     geocodeAddress(geocoder, map);
+   
+    
+}
+    
+function geocodeAddress(geocoder, resultsMap) {
+  var address = inAddress;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      //resultsMap.setCenter(results[0].geometry.location);
+      lat = results[0].geometry.location.lat();
+      lng = results[0].geometry.location.lng();
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+        
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+function getLat(){
+    
+    return lat;
+}
 
+function getLng(){
+    
+    return lng;
+}
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM7o4RXMLVk9N9Y2fe4VYrbardP2D3qLs&signed_in=false&callback=initMap"
         async defer></script>
